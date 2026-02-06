@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendyHub - Best Deals & Trending Products</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #ff3366;
+      --dark: #1a1a1a;
+      --light: #f8f9fa;
+      --gradient: linear-gradient(135deg, #667eea, #764ba2);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--light);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo { 
+      font-size: 1.8rem; 
+      font-weight: bold; 
+      color: var(--primary); 
+    }
+    
+    /* Desktop Nav Links */
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+    
+    .nav-links a { 
+      text-decoration: none; 
+      color: #333; 
+      font-weight: 500;
+      white-space: nowrap;
+      position: relative;
+    }
+    
+    .nav-links a:hover { 
+      color: var(--primary); 
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Nav Icons */
+    .nav-icons { 
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    
+    .nav-icons a { 
+      color: var(--dark); 
+      font-size: 1.4rem;
+      transition: all 0.3s;
+    }
+    
+    .nav-icons a:hover { 
+      color: var(--primary); 
+      transform: translateY(-2px);
+    }
+    
+    /* Cart Badge */
+    .cart-container {
+      position: relative;
+    }
+    
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1556740714-a8395b3a74dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover;
+      position: relative;
+      color: white;
+      text-align: center;
+      padding: 8rem 5%;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+    }
+    
+    .hero-content { 
+      position: relative; 
+      z-index: 2; 
+      max-width: 900px; 
+      margin: 0 auto; 
+    }
+    
+    .hero h1 { 
+      font-size: 2.5rem; 
+      margin-bottom: 1rem; 
+    }
+    
+    .hero p { 
+      font-size: 1.2rem; 
+      margin-bottom: 2rem; 
+    }
+    
+    .cta-btn {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    
+    .cta-btn:hover { 
+      transform: translateY(-4px); 
+      background: #e01e5a; 
+    }
+    
+    /* Flash Sale Container */
+    .flash-sale-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 1300px;
+      margin: 2rem auto;
+      background: linear-gradient(135deg, #ff3366, #ff9966);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    
+    .countdown-section {
+      background: rgba(0,0,0,0.85);
+      color: white;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .countdown-section h3 { 
+      font-size: 1.8rem; 
+      margin-bottom: 1.5rem; 
+      color: #ffcc00;
+    }
+    
+    .timer { 
+      display: flex; 
+      justify-content: center; 
+      gap: 0.8rem; 
+      font-size: 1.8rem; 
+      font-weight: bold; 
+    }
+    
+    .timer span { 
+      background: var(--primary); 
+      padding: 0.8rem 1rem; 
+      border-radius: 10px; 
+      min-width: 70px; 
+    }
+    
+    .timer-label {
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      color: #ddd;
+    }
+    
+    /* Flash Sale Slider - CSS Only */
+    .flash-slider-section {
+      padding: 1.5rem;
+      background: white;
+    }
+    
+    .flash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .flash-header h2 {
+      font-size: 1.8rem;
+      color: #ff3366;
+    }
+    
+    .view-all {
+      color: #ff3366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    
+    /* CSS Only Slider */
+    .slider-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 350px;
+    }
+    
+    .slider {
+      display: flex;
+      width: 400%;
+      height: 100%;
+      animation: slide 20s infinite;
+    }
+    
+    @keyframes slide {
+      0%, 20% { transform: translateX(0); }
+      25%, 45% { transform: translateX(-25%); }
+      50%, 70% { transform: translateX(-50%); }
+      75%, 95% { transform: translateX(-75%); }
+      100% { transform: translateX(0); }
+    }
+    
+    .flash-slide {
+      width: 25%;
+      padding: 0.5rem;
+      box-sizing: border-box;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    
+    .flash-product {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 1.2rem;
+      height: 100%;
+      transition: all 0.3s;
+    }
+    
+    .flash-product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .flash-img {
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+    
+    .flash-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    
+    .flash-product:hover .flash-img img {
+      transform: scale(1.05);
+    }
+    
+    .flash-product h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .flash-price {
+      font-size: 1.5rem;
+      color: #ff3366;
+      font-weight: bold;
+      margin-bottom: 0.3rem;
+    }
+    
+    .flash-old-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 1rem;
+    }
+    
+    .flash-discount {
+      background: #ff3366;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+    
+    /* Trust Badges */
+    .trust-badges {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      padding: 2rem 5%;
+      background: white;
+    }
+    
+    .badge { 
+      text-align: center; 
+      font-size: 1rem; 
+      padding: 1rem;
+    }
+    
+    .badge i { 
+      font-size: 2.2rem; 
+      color: var(--primary); 
+      margin-bottom: 0.5rem; 
+    }
+    
+    /* Products Section */
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      margin: 3rem 0 2rem;
+      color: var(--dark);
+    }
+    
+    .products {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.35s ease;
+    }
+    
+    .product-card:hover { 
+      transform: translateY(-8px); 
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15); 
+    }
+    
+    .product-img { 
+      height: 250px; 
+      overflow: hidden; 
+    }
+    
+    .product-img img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      transition: transform 0.4s; 
+    }
+    
+    .product-card:hover img { 
+      transform: scale(1.08); 
+    }
+    
+    .product-info { 
+      padding: 1.2rem; 
+      text-align: center; 
+    }
+    
+    .product-info h3 { 
+      font-size: 1.2rem; 
+      margin-bottom: 0.5rem; 
+    }
+    
+    .price { 
+      font-size: 1.5rem; 
+      color: var(--primary); 
+      font-weight: bold; 
+      margin: 0.5rem 0;
+    }
+    
+    .old-price { 
+      text-decoration: line-through; 
+      color: #888; 
+      font-size: 1rem; 
+      margin-left: 0.5rem; 
+    }
+    
+    .rating { 
+      color: #f39c12; 
+      margin: 0.5rem 0; 
+    }
+    
+    .add-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      font-weight: bold;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .add-btn:hover { 
+      background: #e01e5a; 
+    }
+    
+    /* Newsletter */
+    .newsletter {
+      background: var(--gradient);
+      color: white;
+      text-align: center;
+      padding: 3rem 5%;
+      margin-top: 3rem;
+    }
+    
+    .newsletter h2 { 
+      font-size: 1.8rem; 
+      margin-bottom: 1rem; 
+    }
+    
+    .newsletter p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .newsletter-form { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column;
+      gap: 1rem; 
+    }
+    
+    .newsletter input { 
+      padding: 1rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-size: 1rem; 
+    }
+    
+    .newsletter button { 
+      background: white; 
+      color: var(--primary); 
+      padding: 1rem 2rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+    
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      text-decoration: none;
+    }
+    
+    .whatsapp-float:hover { 
+      transform: scale(1.1); 
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    footer a {
+      color: #ff3366;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    
+    /* Responsive Styles */
+    @media (min-width: 768px) {
+      .hero {
+        padding: 10rem 5%;
+      }
+      
+      .hero h1 {
+        font-size: 3.5rem;
+      }
+      
+      .flash-sale-container {
+        flex-direction: row;
+      }
+      
+      .countdown-section {
+        flex: 1;
+        min-width: 300px;
+        padding: 3rem 2rem;
+      }
+      
+      .flash-slider-section {
+        flex: 2;
+        padding: 2rem;
+      }
+      
+      .trust-badges {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .newsletter-form {
+        flex-direction: row;
+      }
+      
+      .newsletter input {
+        flex: 1;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .timer {
+        font-size: 1.5rem;
+      }
+      
+      .slider-container {
+        height: 300px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .trust-badges {
+        grid-template-columns: 1fr;
+      }
+      
+      .products {
+        grid-template-columns: 1fr;
+      }
+      
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero {
+        padding: 12rem 5% 8rem;
+      }
+      
+      .hero h1 {
+        font-size: 4.2rem;
+      }
+      
+      .products {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+      }
+      
+      .product-img {
+        height: 320px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">TrendyHub</div>
+    
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#category">Category</a>
+      <a href="#new">New Arrivals</a>
+      <a href="#sale">Sale</a>
+    </div>
+    
+    <div class="nav-icons">
+      <a href="#search"><i class="fas fa-search"></i></a>
+      <div class="cart-container">
+        <a href="#cart"><i class="fas fa-shopping-cart"></i></a>
+        <span class="cart-badge">3</span>
+      </div>
+      <a href="#user"><i class="fas fa-user"></i></a>
+      <div>
+        <i class="fas fa-moon"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Discover Trending Styles</h1>
+      <p>Shop the hottest products at unbeatable prices – Limited Time Offers!</p>
+      <a href="#products" class="cta-btn">Shop Now →</a>
+    </div>
+  </section>
+
+  <!-- Flash Sale -->
+  <div class="flash-sale-container" id="sale">
+    <div class="countdown-section">
+      <h3>⚡ Flash Sale Ends In</h3>
+      <div class="timer">
+        <div>
+          <span>23</span>
+          <div class="timer-label">Hours</div>
+        </div>
+        <div>
+          <span>45</span>
+          <div class="timer-label">Minutes</div>
+        </div>
+        <div>
+          <span>12</span>
+          <div class="timer-label">Seconds</div>
+        </div>
+      </div>
+      <p style="margin-top: 1.5rem; color: #ffcc00; font-weight: bold;">Up to 70% OFF!</p>
+    </div>
+    
+    <div class="flash-slider-section">
+      <div class="flash-header">
+        <h2>🔥 Flash Sale Products</h2>
+        <a href="#all-products" class="view-all">View All →</a>
+      </div>
+      
+      <div class="slider-container">
+        <div class="slider">
+          <a href="product1.html" class="flash-slide">
+            <div class="flash-product">
+              <div class="flash-img">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smart Watch">
+              </div>
+              <h4>Premium Smart Watch Series X</h4>
+              <div class="flash-price">$49.99 <span class="flash-old-price">$89.99</span></div>
+              <div class="flash-discount">44% OFF</div>
+            </div>
+          </a>
+          
+          <a href="product2.html" class="flash-slide">
+            <div class="flash-product">
+              <div class="flash-img">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Headphones">
+              </div>
+              <h4>Noise-Cancelling Wireless Earbuds</h4>
+              <div class="flash-price">$39.99 <span class="flash-old-price">$69.99</span></div>
+              <div class="flash-discount">43% OFF</div>
+            </div>
+          </a>
+          
+          <a href="product3.html" class="flash-slide">
+            <div class="flash-product">
+              <div class="flash-img">
+                <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="LED Strip">
+              </div>
+              <h4>RGB LED Strip Lights 10m</h4>
+              <div class="flash-price">$24.99 <span class="flash-old-price">$49.99</span></div>
+              <div class="flash-discount">50% OFF</div>
+            </div>
+          </a>
+          
+          <a href="product4.html" class="flash-slide">
+            <div class="flash-product">
+              <div class="flash-img">
+                <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smart Speaker">
+              </div>
+              <h4>Smart Bluetooth Speaker</h4>
+              <div class="flash-price">$32.99 <span class="flash-old-price">$59.99</span></div>
+              <div class="flash-discount">45% OFF</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trust Badges -->
+  <div class="trust-badges">
+    <div class="badge"><i class="fas fa-truck"></i><br>Free Shipping</div>
+    <div class="badge"><i class="fas fa-shield-alt"></i><br>Secure Payment</div>
+    <div class="badge"><i class="fas fa-undo"></i><br>Easy Returns</div>
+    <div class="badge"><i class="fas fa-headset"></i><br>24/7 Support</div>
+  </div>
+
+  <!-- Products -->
+  <h2 class="section-title" id="products">Trending Products</h2>
+  <section class="products">
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Smart Watch">
+      </div>
+      <div class="product-info">
+        <h3>Premium Smart Watch Series X</h3>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i> 4.8
+        </div>
+        <div class="price">$49.99 <span class="old-price">$89.99</span></div>
+        <a href="#cart" class="add-btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Headphones">
+      </div>
+      <div class="product-info">
+        <h3>Noise-Cancelling Wireless Earbuds</h3>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i> 5.0
+        </div>
+        <div class="price">$39.99 <span class="old-price">$69.99</span></div>
+        <a href="#cart" class="add-btn">Add to Cart</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="LED Strip">
+      </div>
+      <div class="product-info">
+        <h3>RGB LED Strip Lights 10m</h3>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i> 4.5
+        </div>
+        <div class="price">$24.99 <span class="old-price">$49.99</span></div>
+        <a href="#cart" class="add-btn">Add to Cart</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2>Stay Updated – Get Exclusive Deals!</h2>
+    <p>Subscribe and never miss our flash sales & new arrivals</p>
+    <form class="newsletter-form" action="#" method="get">
+      <input type="email" placeholder="Enter your email..." required>
+      <button type="submit">Subscribe Now</button>
+    </form>
+  </section>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/8801712345678" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 TrendyHub. All Rights Reserved.</p>
+    <p>
+      <a href="#privacy">Privacy Policy</a> | 
+      <a href="#terms">Terms of Service</a> | 
+      <a href="#contact">Contact Us</a>
+    </p>
+  </footer>
+
+</body>
+</html>
