@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Smart Watches | TrendyHub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #ff3366;
+      --secondary: #667eea;
+      --dark: #1a1a1a;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --border: #e0e0e0;
+    }
+    
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--light);
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Navbar */
+    .navbar {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo { 
+      font-size: 1.8rem; 
+      font-weight: bold; 
+      color: var(--primary); 
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .nav-links a { 
+      text-decoration: none; 
+      color: #333; 
+      font-weight: 500;
+    }
+    
+    .nav-icons { 
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    
+    .nav-icons a { 
+      color: var(--dark); 
+      font-size: 1.4rem;
+    }
+    
+    /* Filter & Sort Bar */
+    .filter-sort-bar {
+      padding: 1.5rem 5%;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .results-count {
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .view-options {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    
+    .view-btn {
+      background: none;
+      border: 1px solid var(--border);
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .view-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    
+    .view-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .sort-options {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .sort-select {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      font-family: inherit;
+      cursor: pointer;
+      transition: border-color 0.3s;
+    }
+    
+    .sort-select:hover {
+      border-color: var(--primary);
+    }
+    
+    /* Main Container */
+    .main-container {
+      display: flex;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 5%;
+      gap: 2rem;
+    }
+    
+    /* Filters Sidebar */
+    .filters-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      height: fit-content;
+    }
+    
+    .filter-section {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+    }
+    
+    .filter-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: var(--dark);
+    }
+    
+    .filter-content {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .filter-item {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .filter-checkbox {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--primary);
+    }
+    
+    .filter-label {
+      cursor: default;
+    }
+    
+    .filter-count {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    /* Price Range */
+    .price-range {
+      margin-top: 1rem;
+    }
+    
+    .price-inputs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .price-input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .price-slider {
+      width: 100%;
+      height: 5px;
+      background: #ddd;
+      border-radius: 5px;
+    }
+    
+    /* Color Filters */
+    .color-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    
+    .color-filter {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #f0f0f0;
+    }
+    
+    .color-filter.active {
+      border-color: #ccc;
+    }
+    
+    /* Rating Filters */
+    .rating-filter {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    /* Filter Buttons */
+    .filter-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .filter-btn {
+      flex: 1;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .apply-btn {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .apply-btn:hover {
+      background: #e01e5a;
+      transform: translateY(-2px);
+    }
+    
+    .reset-btn {
+      background: #f8f9fa;
+      color: var(--dark);
+      border: 1px solid var(--border);
+    }
+    
+    .reset-btn:hover {
+      background: #e9ecef;
+      transform: translateY(-2px);
+    }
+    
+    /* Products Grid */
+    .products-grid {
+      flex: 1;
+    }
+    
+    /* Grid View */
+    .grid-view {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    /* List View (Hidden by default) */
+    .list-view {
+      display: none;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .list-view .product-card {
+      display: flex;
+      height: auto;
+    }
+    
+    .list-view .product-img {
+      width: 250px;
+      height: 250px;
+      flex-shrink: 0;
+    }
+    
+    .list-view .product-info {
+      flex: 1;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+    }
+    
+    /* Product Card */
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      z-index: 1;
+    }
+    
+    .badge.sale {
+      background: var(--primary);
+      color: white;
+    }
+    
+    .badge.new {
+      background: #28a745;
+      color: white;
+    }
+    
+    .badge.hot {
+      background: #ffc107;
+      color: black;
+    }
+    
+    .product-img {
+      height: 250px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .product-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .product-card:hover .product-img img {
+      transform: scale(1.05);
+    }
+    
+    .quick-actions {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .quick-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: white;
+      border: none;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .quick-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.1);
+    }
+    
+    .product-info {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .product-category {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .product-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    
+    .product-rating {
+      color: #f39c12;
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+    
+    .product-price {
+      margin: 0.5rem 0;
+    }
+    
+    .current-price {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    .original-price {
+      font-size: 1rem;
+      color: var(--gray);
+      text-decoration: line-through;
+      margin-left: 0.5rem;
+    }
+    
+    .discount {
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    
+    .product-features {
+      margin: 1rem 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .product-features li {
+      background: #f8f9fa;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+    
+    .product-actions {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+    
+    .action-btn {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background: var(--primary);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+    }
+    
+    .action-btn:hover {
+      background: #e01e5a;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255,51,102,0.3);
+    }
+    
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+      padding: 2rem 0;
+    }
+    
+    .page-btn, .page-number {
+      width: 45px;
+      height: 45px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .page-number.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .page-btn:hover:not(.disabled),
+    .page-number:hover:not(.active) {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+    
+    .page-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    /* Mobile Filter Button */
+    .mobile-filter-btn {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 25px;
+      background: var(--primary);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: none;
+      font-size: 1.5rem;
+      box-shadow: 0 5px 15px rgba(255,51,102,0.3);
+      cursor: pointer;
+      z-index: 998;
+      transition: all 0.3s;
+    }
+    
+    .mobile-filter-btn:hover {
+      background: #e01e5a;
+      transform: scale(1.1);
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .grid-view {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .filters-sidebar {
+        width: 100%;
+        display: block;
+      }
+      
+      .mobile-filter-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .filter-sort-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .grid-view {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .grid-view {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-sort-bar {
+        padding: 1rem;
+      }
+      
+      .sort-options {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .pagination {
+        flex-wrap: wrap;
+      }
+    }
+    
+    /* CSS-only View Toggle */
+    #show-list:checked ~ .main-container .grid-view {
+      display: none;
+    }
+    
+    #show-list:checked ~ .main-container .list-view {
+      display: flex;
+    }
+    
+    #show-list:checked ~ .filter-sort-bar .view-btn[data-view="grid"] {
+      background: none;
+      color: inherit;
+      border-color: var(--border);
+    }
+    
+    #show-list:checked ~ .filter-sort-bar .view-btn[data-view="list"] {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    /* Hide the checkbox */
+    #show-list {
+      display: none;
+    }
+    
+    /* CSS-only Filter Overlay */
+    #show-filters {
+      display: none;
+    }
+    
+    .filter-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1001;
+      justify-content: flex-start;
+      align-items: stretch;
+    }
+    
+    #show-filters:checked ~ .filter-overlay {
+      display: flex;
+    }
+    
+    .filter-overlay-content {
+      width: 90%;
+      max-width: 350px;
+      height: 100%;
+      background: white;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+    
+    .filter-overlay-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .close-filter {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Checkboxes for CSS-only functionality -->
+  <input type="checkbox" id="show-list">
+  <input type="checkbox" id="show-filters">
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">TrendyHub</div>
+    
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#category">Category</a>
+      <a href="#new">New Arrivals</a>
+      <a href="#sale">Sale</a>
+    </div>
+    
+    <div class="nav-icons">
+      <a href="#search"><i class="fas fa-search"></i></a>
+      <a href="#cart"><i class="fas fa-shopping-cart"></i></a>
+      <a href="#user"><i class="fas fa-user"></i></a>
+    </div>
+  </nav>
+
+  <!-- Filter & Sort Bar -->
+  <div class="filter-sort-bar">
+    <div class="results-count">Showing 1-12 of 48 products</div>
+    
+    <div class="sort-options">
+      <span>Sort by:</span>
+      <select class="sort-select">
+        <option value="featured">Featured</option>
+        <option value="newest">Newest</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="rating">Highest Rated</option>
+        <option value="popular">Most Popular</option>
+      </select>
+    </div>
+    
+    <div class="view-options">
+      <span>View:</span>
+      <label for="show-list" class="view-btn active" data-view="grid" title="Grid View">
+        <i class="fas fa-th-large"></i>
+      </label>
+      <label for="show-list" class="view-btn" data-view="list" title="List View">
+        <i class="fas fa-list"></i>
+      </label>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    
+    <!-- Filters Sidebar -->
+    <aside class="filters-sidebar">
+      
+      <!-- Categories -->
+      <div class="filter-section">
+        <div class="filter-title">Categories</div>
+        <div class="filter-content">
+          <div class="filter-item">
+            <input type="checkbox" id="cat-smartwatch" class="filter-checkbox" checked>
+            <label for="cat-smartwatch" class="filter-label">Smart Watches</label>
+            <span class="filter-count">(48)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="cat-fitness" class="filter-checkbox">
+            <label for="cat-fitness" class="filter-label">Fitness Bands</label>
+            <span class="filter-count">(24)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="cat-headphones" class="filter-checkbox">
+            <label for="cat-headphones" class="filter-label">Headphones</label>
+            <span class="filter-count">(36)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="cat-speakers" class="filter-checkbox">
+            <label for="cat-speakers" class="filter-label">Speakers</label>
+            <span class="filter-count">(18)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="cat-accessories" class="filter-checkbox">
+            <label for="cat-accessories" class="filter-label">Accessories</label>
+            <span class="filter-count">(42)</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Price Range -->
+      <div class="filter-section">
+        <div class="filter-title">Price Range</div>
+        <div class="filter-content">
+          <div class="price-range">
+            <div class="price-inputs">
+              <input type="number" class="price-input" placeholder="Min" value="0">
+              <input type="number" class="price-input" placeholder="Max" value="500">
+            </div>
+            <input type="range" class="price-slider" min="0" max="500" value="500">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Brands -->
+      <div class="filter-section">
+        <div class="filter-title">Brands</div>
+        <div class="filter-content">
+          <div class="filter-item">
+            <input type="checkbox" id="brand-apple" class="filter-checkbox">
+            <label for="brand-apple" class="filter-label">Apple</label>
+            <span class="filter-count">(12)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="brand-samsung" class="filter-checkbox" checked>
+            <label for="brand-samsung" class="filter-label">Samsung</label>
+            <span class="filter-count">(8)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="brand-fitbit" class="filter-checkbox">
+            <label for="brand-fitbit" class="filter-label">Fitbit</label>
+            <span class="filter-count">(6)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="brand-garmin" class="filter-checkbox">
+            <label for="brand-garmin" class="filter-label">Garmin</label>
+            <span class="filter-count">(4)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="brand-xiaomi" class="filter-checkbox" checked>
+            <label for="brand-xiaomi" class="filter-label">Xiaomi</label>
+            <span class="filter-count">(10)</span>
+          </div>
+          <div class="filter-item">
+            <input type="checkbox" id="brand-huawei" class="filter-checkbox">
+            <label for="brand-huawei" class="filter-label">Huawei</label>
+            <span class="filter-count">(8)</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Colors -->
+      <div class="filter-section">
+        <div class="filter-title">Colors</div>
+        <div class="filter-content">
+          <div class="color-filters">
+            <div class="color-filter active" style="background: #000;" title="Black"></div>
+            <div class="color-filter" style="background: #c0c0c0;" title="Silver"></div>
+            <div class="color-filter" style="background: #ffd700;" title="Gold"></div>
+            <div class="color-filter" style="background: #007bff;" title="Blue"></div>
+            <div class="color-filter" style="background: #28a745;" title="Green"></div>
+            <div class="color-filter" style="background: #dc3545;" title="Red"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Filter Buttons -->
+      <div class="filter-buttons">
+        <button class="filter-btn apply-btn">Apply Filters</button>
+        <button class="filter-btn reset-btn">Reset All</button>
+      </div>
+      
+    </aside>
+
+    <!-- Products Grid -->
+    <main class="products-grid">
+      <div class="grid-view">
+        
+        <!-- Product Card 1 -->
+        <div class="product-card">
+          <div class="badge sale">SALE</div>
+          <div class="badge new" style="left: 80px;">NEW</div>
+          
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Premium Smart Watch Series X">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="product-category">Smart Watches</div>
+            <h3 class="product-title">Premium Smart Watch Series X</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">4.8 (1.2k)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$49.99</span>
+              <span class="original-price">$89.99</span>
+              <span class="discount">44% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>7-Day Battery</li>
+              <li>Waterproof</li>
+              <li>GPS</li>
+            </ul>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 2 -->
+        <div class="product-card">
+          <div class="badge hot">HOT</div>
+          
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Fitness Tracker Pro">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="product-category">Fitness Bands</div>
+            <h3 class="product-title">Advanced Fitness Tracker Pro</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">4.0 (856)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$29.99</span>
+              <span class="original-price">$49.99</span>
+              <span class="discount">40% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>Heart Monitor</li>
+              <li>Sleep Track</li>
+              <li>14-Day Battery</li>
+            </ul>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 3 -->
+        <div class="product-card">
+          <div class="badge sale">SALE</div>
+          
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1579586337278-3f1deaa7e125?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Sports Smart Watch">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="product-category">Smart Watches</div>
+            <h3 class="product-title">Sports Edition Smart Watch</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">5.0 (2.1k)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$59.99</span>
+              <span class="original-price">$99.99</span>
+              <span class="discount">40% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>100+ Sports</li>
+              <li>GPS + GLONASS</li>
+              <li>Military Grade</li>
+            </ul>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 4 -->
+        <div class="product-card">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Luxury Smart Watch">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="product-category">Smart Watches</div>
+            <h3 class="product-title">Luxury Edition Smart Watch</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">4.5 (934)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$89.99</span>
+              <span class="original-price">$149.99</span>
+              <span class="discount">40% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>Premium Build</li>
+              <li>Wireless Charging</li>
+              <li>Ceramic Bezel</li>
+            </ul>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 5 -->
+        <div class="product-card">
+          <div class="badge new">NEW</div>
+          
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Kids Smart Watch">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="product-category">Smart Watches</div>
+            <h3 class="product-title">Kids Smart Watch with GPS</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">4.0 (567)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$39.99</span>
+              <span class="original-price">$69.99</span>
+              <span class="discount">43% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>GPS Tracker</li>
+              <li>SOS Button</li>
+              <li>Parent Control</li>
+            </ul>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product Card 6 -->
+        <div class="product-card">
+          <div class="badge sale">SALE</div>
+          
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Waterproof Smart Watch">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="product-category">Smart Watches</div>
+            <h3 class="product-title">Waterproof Smart Watch Pro</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">4.5 (1.4k)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$44.99</span>
+              <span class="original-price">$79.99</span>
+              <span class="discount">44% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>100m Waterproof</li>
+              <li>Diving Mode</li>
+              <li>Tide Information</li>
+            </ul>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- List View -->
+      <div class="list-view">
+        
+        <!-- List View Product 1 -->
+        <div class="product-card">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Premium Smart Watch Series X">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="badge sale">SALE</div>
+            <div class="badge new">NEW</div>
+            
+            <div class="product-category">Smart Watches</div>
+            <h3 class="product-title">Premium Smart Watch Series X</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">4.8 (1.2k)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$49.99</span>
+              <span class="original-price">$89.99</span>
+              <span class="discount">44% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>7-Day Battery</li>
+              <li>Waterproof</li>
+              <li>GPS</li>
+              <li>Heart Rate Monitor</li>
+              <li>Sleep Tracking</li>
+            </ul>
+            
+            <p style="margin: 1rem 0; color: var(--gray);">Premium smart watch with all the latest features including fitness tracking, notifications, and long battery life.</p>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- List View Product 2 -->
+        <div class="product-card">
+          <div class="product-img">
+            <img src="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                 alt="Fitness Tracker Pro">
+            <div class="quick-actions">
+              <button class="quick-btn" title="Quick View">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="quick-btn" title="Add to Wishlist">
+                <i class="far fa-heart"></i>
+              </button>
+              <button class="quick-btn" title="Compare">
+                <i class="fas fa-exchange-alt"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="product-info">
+            <div class="badge hot">HOT</div>
+            
+            <div class="product-category">Fitness Bands</div>
+            <h3 class="product-title">Advanced Fitness Tracker Pro</h3>
+            
+            <div class="product-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+              <span style="margin-left: 0.5rem; color: var(--gray); font-size: 0.9rem;">4.0 (856)</span>
+            </div>
+            
+            <div class="product-price">
+              <span class="current-price">$29.99</span>
+              <span class="original-price">$49.99</span>
+              <span class="discount">40% OFF</span>
+            </div>
+            
+            <ul class="product-features">
+              <li>Heart Monitor</li>
+              <li>Sleep Track</li>
+              <li>14-Day Battery</li>
+              <li>Waterproof</li>
+              <li>Smart Notifications</li>
+            </ul>
+            
+            <p style="margin: 1rem 0; color: var(--gray);">Advanced fitness tracker with accurate heart rate monitoring and 14-day battery life.</p>
+            
+            <div class="product-actions">
+              <button class="action-btn">
+                <i class="fas fa-shopping-cart"></i>
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Pagination -->
+      <div class="pagination">
+        <button class="page-btn prev disabled">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <button class="page-number active">1</button>
+        <button class="page-number">2</button>
+        <button class="page-number">3</button>
+        <button class="page-number">4</button>
+        
+        <span class="page-dots">...</span>
+        
+        <button class="page-number">8</button>
+        
+        <button class="page-btn next">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </main>
+  </div>
+
+  <!-- Mobile Filter Button -->
+  <label for="show-filters" class="mobile-filter-btn" title="Filters">
+    <i class="fas fa-filter"></i>
+  </label>
+
+  <!-- Filter Overlay for Mobile -->
+  <div class="filter-overlay">
+    <div class="filter-overlay-content">
+      <div class="filter-overlay-header">
+        <h3>Filters</h3>
+        <label for="show-filters" class="close-filter">
+          <i class="fas fa-times"></i>
+        </label>
+      </div>
+      
+      <!-- Same filters as sidebar -->
+      <div class="filters-sidebar" style="width: 100%; box-shadow: none; padding: 0;">
+        <div class="filter-section">
+          <div class="filter-title">Categories</div>
+          <div class="filter-content">
+            <div class="filter-item">
+              <input type="checkbox" id="cat-smartwatch-mobile" class="filter-checkbox" checked>
+              <label for="cat-smartwatch-mobile" class="filter-label">Smart Watches</label>
+              <span class="filter-count">(48)</span>
+            </div>
+            <div class="filter-item">
+              <input type="checkbox" id="cat-fitness-mobile" class="filter-checkbox">
+              <label for="cat-fitness-mobile" class="filter-label">Fitness Bands</label>
+              <span class="filter-count">(24)</span>
+            </div>
+            <div class="filter-item">
+              <input type="checkbox" id="cat-headphones-mobile" class="filter-checkbox">
+              <label for="cat-headphones-mobile" class="filter-label">Headphones</label>
+              <span class="filter-count">(36)</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-section">
+          <div class="filter-title">Price Range</div>
+          <div class="filter-content">
+            <div class="price-range">
+              <div class="price-inputs">
+                <input type="number" class="price-input" placeholder="Min" value="0">
+                <input type="number" class="price-input" placeholder="Max" value="500">
+              </div>
+              <input type="range" class="price-slider" min="0" max="500" value="500">
+            </div>
+          </div>
+        </div>
+        
+        <div class="filter-buttons">
+          <button class="filter-btn apply-btn">Apply Filters</button>
+          <button class="filter-btn reset-btn">Reset All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Simple Footer -->
+  <footer style="background: var(--dark); color: #aaa; text-align: center; padding: 2rem 1rem; margin-top: 3rem;">
+    <p>© 2026 TrendyHub. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
