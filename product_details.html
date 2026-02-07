@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Premium Smart Watch Series X | TrendyHub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #ff3366;
+      --secondary: #667eea;
+      --dark: #1a1a1a;
+      --light: #f8f9fa;
+      --gray: #6c757d;
+      --success: #28a745;
+    }
+    
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--light);
+      color: #333;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+      padding: 1rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo { 
+      font-size: 1.8rem; 
+      font-weight: bold; 
+      color: var(--primary); 
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+      margin: 0 auto;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .nav-links a { 
+      text-decoration: none; 
+      color: #333; 
+      font-weight: 500;
+      white-space: nowrap;
+      padding: 5px 0;
+      position: relative;
+    }
+    
+    .nav-links a:hover { 
+      color: var(--primary); 
+    }
+    
+    .nav-icons { 
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+      margin-left: auto;
+    }
+    
+    .nav-icons i { 
+      font-size: 1.4rem; 
+      cursor: pointer; 
+      color: var(--dark); 
+    }
+    
+    .cart-container {
+      position: relative;
+    }
+    
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 1rem 5%;
+      background: #f8f9fa;
+      font-size: 0.9rem;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    
+    .breadcrumb span {
+      color: var(--gray);
+    }
+    
+    /* Product Container */
+    .product-container {
+      max-width: 1400px;
+      margin: 2rem auto;
+      padding: 0 5%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+    
+    /* Product Gallery */
+    .product-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .main-image {
+      width: 100%;
+      height: 500px;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      cursor: zoom-in;
+    }
+    
+    .main-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    
+    .main-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    .thumbnail-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    
+    .thumbnail {
+      height: 100px;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .thumbnail.active {
+      border-color: var(--primary);
+    }
+    
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Product Info */
+    .product-info {
+      padding: 1rem;
+    }
+    
+    .product-title {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+    }
+    
+    .product-brand {
+      color: var(--gray);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .stars {
+      color: #f39c12;
+    }
+    
+    .review-count {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .product-price {
+      margin: 2rem 0;
+    }
+    
+    .current-price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--primary);
+    }
+    
+    .original-price {
+      font-size: 1.5rem;
+      color: var(--gray);
+      text-decoration: line-through;
+      margin-left: 1rem;
+    }
+    
+    .discount {
+      background: var(--primary);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin-left: 1rem;
+    }
+    
+    .product-description {
+      margin: 2rem 0;
+      line-height: 1.8;
+      color: #555;
+    }
+    
+    /* Product Features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .feature i {
+      color: var(--primary);
+    }
+    
+    /* Color Options */
+    .color-options {
+      margin: 2rem 0;
+    }
+    
+    .option-title {
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    .colors {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .color {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 3px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .color.active {
+      border-color: var(--primary);
+      transform: scale(1.1);
+    }
+    
+    .color.black { background: #000; }
+    .color.silver { background: #c0c0c0; }
+    .color.gold { background: #ffd700; }
+    .color.blue { background: #007bff; }
+    
+    /* Size Options */
+    .size-options {
+      margin: 2rem 0;
+    }
+    
+    .sizes {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    
+    .size {
+      padding: 0.8rem 1.5rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .size.active {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+    
+    .size:hover:not(.active) {
+      border-color: var(--gray);
+    }
+    
+    /* Quantity Selector */
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+    
+    .qty-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #ddd;
+      background: white;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .qty-btn:hover {
+      border-color: var(--primary);
+    }
+    
+    .quantity {
+      width: 60px;
+      height: 40px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      flex: 2;
+    }
+    
+    .btn-primary:hover {
+      background: #e01e5a;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255,51,102,0.3);
+    }
+    
+    .btn-secondary {
+      background: var(--secondary);
+      color: white;
+      flex: 1;
+    }
+    
+    .btn-secondary:hover {
+      background: #5a6fd8;
+      transform: translateY(-3px);
+    }
+    
+    .btn-outline {
+      background: white;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      flex: 1;
+    }
+    
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+    
+    /* Product Meta */
+    .product-meta {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: #f8f9fa;
+      border-radius: 15px;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    
+    .meta-item i {
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+    
+    /* Tabs Section */
+    .tabs-section {
+      max-width: 1400px;
+      margin: 4rem auto;
+      padding: 0 5%;
+    }
+    
+    .tabs {
+      display: flex;
+      gap: 2rem;
+      border-bottom: 2px solid #eee;
+      margin-bottom: 2rem;
+    }
+    
+    .tab {
+      padding: 1rem 0;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--gray);
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .tab.active {
+      color: var(--primary);
+    }
+    
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary);
+    }
+    
+    .tab-content {
+      padding: 2rem 0;
+    }
+    
+    .tab-pane {
+      display: none;
+    }
+    
+    .tab-pane.active {
+      display: block;
+    }
+    
+    /* Specifications */
+    .specs-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .specs-table tr {
+      border-bottom: 1px solid #eee;
+    }
+    
+    .specs-table td {
+      padding: 1rem 0.5rem;
+    }
+    
+    .specs-table td:first-child {
+      font-weight: 600;
+      width: 30%;
+      color: var(--dark);
+    }
+    
+    /* Reviews */
+    .review-item {
+      padding: 1.5rem;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+    }
+    
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    
+    .reviewer-name {
+      font-weight: 600;
+    }
+    
+    .review-date {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    /* Related Products */
+    .related-products {
+      max-width: 1400px;
+      margin: 4rem auto;
+      padding: 0 5%;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--dark);
+    }
+    
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .related-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+    }
+    
+    .related-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .related-img {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .related-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    
+    .related-card:hover .related-img img {
+      transform: scale(1.1);
+    }
+    
+    .related-info {
+      padding: 1.5rem;
+    }
+    
+    .related-info h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .related-price {
+      color: var(--primary);
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+    
+    /* WhatsApp Float */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: 0.3s;
+    }
+    
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      text-align: center;
+      padding: 3rem 1rem;
+      margin-top: 4rem;
+    }
+    
+    footer a {
+      color: #ff3366;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+    
+    /* Zoom Modal */
+    .zoom-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1001;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .zoom-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+    }
+    
+    .zoom-content img {
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+    
+    .close-zoom {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      background: var(--success);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1002;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .product-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .main-image {
+        height: 400px;
+      }
+      
+      .product-title {
+        font-size: 1.8rem;
+      }
+      
+      .current-price {
+        font-size: 2rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 999;
+        position: absolute;
+        left: 0;
+        transform: translateX(0);
+        transition: all 0.3s ease;
+      }
+      
+      .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .features {
+        grid-template-columns: 1fr;
+      }
+      
+      .thumbnail-container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .main-image {
+        height: 300px;
+      }
+      
+      .thumbnail {
+        height: 70px;
+      }
+      
+      .product-title {
+        font-size: 1.5rem;
+      }
+      
+      .current-price {
+        font-size: 1.8rem;
+      }
+      
+      .thumbnail-container {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
+      }
+      
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">TrendyHub</a>
+    
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="category.html">Category</a>
+      <a href="new-arrivals.html">New Arrivals</a>
+      <a href="sale.html">Sale</a>
+    </div>
+    
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="nav-icons">
+      <i class="fas fa-search" title="Search"></i>
+      <div class="cart-container">
+        <i class="fas fa-shopping-cart" title="Shopping Cart"></i>
+        <span class="cart-badge">3</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> › 
+    <a href="category.html">Electronics</a> › 
+    <a href="smart-watches.html">Smart Watches</a> › 
+    <span>Premium Smart Watch Series X</span>
+  </div>
+
+  <!-- Product Container -->
+  <div class="product-container">
+    
+    <!-- Product Gallery -->
+    <div class="product-gallery">
+      <div class="main-image" id="mainImage">
+        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+             alt="Premium Smart Watch Series X" id="zoomImage">
+      </div>
+      
+      <div class="thumbnail-container">
+        <div class="thumbnail active" data-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+          <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Front View">
+        </div>
+        <div class="thumbnail" data-image="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+          <img src="https://images.unsplash.com/photo-1551816230-ef5deaed4a26?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Side View">
+        </div>
+        <div class="thumbnail" data-image="https://images.unsplash.com/photo-1579586337278-3f1deaa7e125?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+          <img src="https://images.unsplash.com/photo-1579586337278-3f1deaa7e125?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="On Wrist">
+        </div>
+        <div class="thumbnail" data-image="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80">
+          <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="Charging">
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Info -->
+    <div class="product-info">
+      <h1 class="product-title">Premium Smart Watch Series X</h1>
+      <div class="product-brand">By TechWear Inc.</div>
+      
+      <div class="product-rating">
+        <div class="stars">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+          <span style="margin-left: 0.5rem; color: var(--dark);">4.8</span>
+        </div>
+        <div class="review-count">(1,234 reviews)</div>
+      </div>
+      
+      <div class="product-price">
+        <span class="current-price">$49.99</span>
+        <span class="original-price">$89.99</span>
+        <span class="discount">44% OFF</span>
+      </div>
+      
+      <p class="product-description">
+        Experience the future of wearable technology with our Premium Smart Watch Series X. 
+        Featuring a stunning AMOLED display, heart rate monitoring, sleep tracking, and 
+        7-day battery life. Water-resistant up to 50 meters and compatible with both iOS 
+        and Android devices.
+      </p>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-battery-full"></i>
+          <span>7-Day Battery Life</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-tint"></i>
+          <span>Water Resistant (50m)</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-heartbeat"></i>
+          <span>Heart Rate Monitor</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-running"></i>
+          <span>100+ Sports Modes</span>
+        </div>
+      </div>
+      
+      <!-- Color Options -->
+      <div class="color-options">
+        <div class="option-title">Color:</div>
+        <div class="colors">
+          <div class="color black active" data-color="Black"></div>
+          <div class="color silver" data-color="Silver"></div>
+          <div class="color gold" data-color="Gold"></div>
+          <div class="color blue" data-color="Blue"></div>
+        </div>
+      </div>
+      
+      <!-- Size Options -->
+      <div class="size-options">
+        <div class="option-title">Size:</div>
+        <div class="sizes">
+          <div class="size active" data-size="38mm">38mm</div>
+          <div class="size" data-size="42mm">42mm</div>
+          <div class="size" data-size="44mm">44mm</div>
+          <div class="size" data-size="46mm">46mm</div>
+        </div>
+      </div>
+      
+      <!-- Quantity Selector -->
+      <div class="quantity-selector">
+        <div class="option-title">Quantity:</div>
+        <button class="qty-btn minus">-</button>
+        <input type="number" class="quantity" value="1" min="1" max="10">
+        <button class="qty-btn plus">+</button>
+      </div>
+      
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="btn btn-primary" id="addToCart">
+          <i class="fas fa-shopping-cart"></i>
+          Add to Cart
+        </button>
+        <button class="btn btn-secondary" id="buyNow">
+          <i class="fas fa-bolt"></i>
+          Buy Now
+        </button>
+        <button class="btn btn-outline" id="addToWishlist">
+          <i class="far fa-heart"></i>
+          Wishlist
+        </button>
+      </div>
+      
+      <!-- Product Meta -->
+      <div class="product-meta">
+        <div class="meta-item">
+          <i class="fas fa-shipping-fast"></i>
+          <div>
+            <strong>Free Shipping</strong>
+            <p>Free delivery on orders over $50</p>
+          </div>
+        </div>
+        <div class="meta-item">
+          <i class="fas fa-undo"></i>
+          <div>
+            <strong>30-Day Returns</strong>
+            <p>Easy returns within 30 days</p>
+          </div>
+        </div>
+        <div class="meta-item">
+          <i class="fas fa-shield-alt"></i>
+          <div>
+            <strong>2-Year Warranty</strong>
+            <p>Manufacturer warranty included</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs Section -->
+  <div class="tabs-section">
+    <div class="tabs">
+      <button class="tab active" data-tab="description">Description</button>
+      <button class="tab" data-tab="specifications">Specifications</button>
+      <button class="tab" data-tab="reviews">Reviews (1,234)</button>
+      <button class="tab" data-tab="shipping">Shipping & Returns</button>
+    </div>
+    
+    <div class="tab-content">
+      <!-- Description -->
+      <div class="tab-pane active" id="description">
+        <h3>Product Overview</h3>
+        <p>The Premium Smart Watch Series X redefines what a smartwatch can be. With its 
+          1.78-inch AMOLED always-on display, you get crystal-clear visuals in any lighting 
+          condition. The 326 PPI pixel density ensures text and graphics are sharp and 
+          vibrant.</p>
+        
+        <h3>Key Features</h3>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li>Advanced health monitoring with 24/7 heart rate tracking</li>
+          <li>SpO2 blood oxygen monitoring</li>
+          <li>Sleep quality analysis with REM sleep tracking</li>
+          <li>Stress monitoring with guided breathing exercises</li>
+          <li>Built-in GPS for accurate workout tracking</li>
+          <li>5ATM water resistance for swimming and water sports</li>
+          <li>Wireless charging with magnetic connector</li>
+          <li>Customizable watch faces and straps</li>
+        </ul>
+        
+        <h3>What's in the Box</h3>
+        <p>Premium Smart Watch Series X, Magnetic Charging Cable, User Manual, 1-Year 
+          Warranty Card, Extra Sport Strap (S/M)</p>
+      </div>
+      
+      <!-- Specifications -->
+      <div class="tab-pane" id="specifications">
+        <table class="specs-table">
+          <tr>
+            <td>Display</td>
+            <td>1.78" AMOLED, 326 PPI, Always-On</td>
+          </tr>
+          <tr>
+            <td>Processor</td>
+            <td>Dual-core 1.2 GHz</td>
+          </tr>
+          <tr>
+            <td>Memory</td>
+            <td>8GB Storage, 1GB RAM</td>
+          </tr>
+          <tr>
+            <td>Battery</td>
+            <td>450mAh, up to 7 days normal use</td>
+          </tr>
+          <tr>
+            <td>Connectivity</td>
+            <td>Bluetooth 5.2, WiFi, GPS, GLONASS</td>
+          </tr>
+          <tr>
+            <td>Sensors</td>
+            <td>Heart Rate, SpO2, Accelerometer, Gyroscope, Compass</td>
+          </tr>
+          <tr>
+            <td>Water Resistance</td>
+            <td>5ATM (50 meters)</td>
+          </tr>
+          <tr>
+            <td>Compatibility</td>
+            <td>iOS 10.0+ / Android 6.0+</td>
+          </tr>
+          <tr>
+            <td>Dimensions</td>
+            <td>44.5 x 36.5 x 11.8 mm</td>
+          </tr>
+          <tr>
+            <td>Weight</td>
+            <td>48g (without strap)</td>
+          </tr>
+        </table>
+      </div>
+      
+      <!-- Reviews -->
+      <div class="tab-pane" id="reviews">
+        <div style="display: flex; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+          <div style="text-align: center;">
+            <div style="font-size: 3rem; font-weight: bold; color: var(--primary);">4.8</div>
+            <div class="stars" style="font-size: 1.2rem;">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div style="color: var(--gray); margin-top: 0.5rem;">1,234 reviews</div>
+          </div>
+          
+          <button class="btn btn-primary" style="padding: 0.8rem 2rem;">
+            <i class="fas fa-edit"></i>
+            Write a Review
+          </button>
+        </div>
+        
+        <div class="review-item">
+          <div class="review-header">
+            <div class="reviewer-name">Alex Johnson</div>
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="review-date">Reviewed on March 15, 2024</div>
+          <p>Excellent smartwatch! The battery life is amazing, lasts a full week with 
+            normal use. The heart rate monitor is accurate and the sleep tracking has 
+            helped me improve my sleep habits.</p>
+        </div>
+        
+        <div class="review-item">
+          <div class="review-header">
+            <div class="reviewer-name">Sarah Miller</div>
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+          <div class="review-date">Reviewed on March 10, 2024</div>
+          <p>Great value for money! The display is beautiful and the interface is smooth. 
+            Works perfectly with my iPhone. The only minor issue is the charging cable 
+            could be longer.</p>
+        </div>
+        
+        <button class="btn btn-outline" style="width: 100%; padding: 1rem;">
+          Load More Reviews
+        </button>
+      </div>
+      
+      <!-- Shipping -->
+      <div class="tab-pane" id="shipping">
+        <h3>Shipping Information</h3>
+        <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+          <li><strong>Free Shipping:</strong> On all orders over $50</li>
+          <li><strong>Standard Shipping:</strong> $4.99 (3-5 business days)</li>
+          <li><strong>Express Shipping:</strong> $9.99 (1-2 business days)</li>
+          <li><strong>International Shipping:</strong> Available to 50+ countries</li>
+        </ul>
+        
+        <h3>Return Policy</h3>
+        <p>We offer a 30-day return policy for unused items in original packaging. 
+          Return shipping is free for defective products. For change of mind returns, 
+          customers are responsible for return shipping costs.</p>
+        
+        <h3>Warranty</h3>
+        <p>All products come with a 2-year manufacturer warranty covering defects in 
+          materials and workmanship.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  <div class="related-products">
+    <h2 class="section-title">You May Also Like</h2>
+    <div class="related-grid">
+      
+      <div class="related-card">
+        <a href="product-earbuds.html" style="text-decoration: none; color: inherit;">
+          <div class="related-img">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wireless Earbuds">
+          </div>
+          <div class="related-info">
+            <h4>Noise-Cancelling Wireless Earbuds</h4>
+            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="related-price">$39.99</div>
+          </div>
+        </a>
+      </div>
+      
+      <div class="related-card">
+        <a href="product-fitness-band.html" style="text-decoration: none; color: inherit;">
+          <div class="related-img">
+            <img src="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fitness Band">
+          </div>
+          <div class="related-info">
+            <h4>Advanced Fitness Band Pro</h4>
+            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="related-price">$29.99</div>
+          </div>
+        </a>
+      </div>
+      
+      <div class="related-card">
+        <a href="product-wireless-charger.html" style="text-decoration: none; color: inherit;">
+          <div class="related-img">
+            <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wireless Charger">
+          </div>
+          <div class="related-info">
+            <h4>Fast Wireless Charging Pad</h4>
+            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </div>
+            <div class="related-price">$24.99</div>
+          </div>
+        </a>
+      </div>
+      
+      <div class="related-card">
+        <a href="product-bluetooth-speaker.html" style="text-decoration: none; color: inherit;">
+          <div class="related-img">
+            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bluetooth Speaker">
+          </div>
+          <div class="related-info">
+            <h4>Portable Bluetooth Speaker</h4>
+            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="related-price">$32.99</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/8801712345678?text=Hi%20I%20have%20a%20question%20about%20Premium%20Smart%20Watch%20Series%20X" 
+     class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 TrendyHub. All Rights Reserved.</p>
+    <p>
+      <a href="#">Privacy Policy</a> | 
+      <a href="#">Terms of Service</a> | 
+      <a href="#">Contact Us</a>
+    </p>
+  </footer>
+
+  <!-- Zoom Modal -->
+  <div class="zoom-modal" id="zoomModal">
+    <div class="zoom-content">
+      <button class="close-zoom" id="closeZoom">&times;</button>
+      <img id="zoomedImage" src="" alt="">
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div class="notification" id="notification">
+    Product added to cart successfully!
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.innerHTML = navLinks.classList.contains('active') 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
+    });
+
+    // Image Gallery
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const mainImage = document.getElementById('mainImage');
+    const zoomImage = document.getElementById('zoomImage');
+    const zoomedImage = document.getElementById('zoomedImage');
+    
+    thumbnails.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        // Update active thumbnail
+        thumbnails.forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        
+        // Update main image
+        const newImage = thumb.getAttribute('data-image');
+        zoomImage.src = newImage;
+        zoomedImage.src = newImage;
+      });
+    });
+
+    // Image Zoom
+    const zoomModal = document.getElementById('zoomModal');
+    const closeZoom = document.getElementById('closeZoom');
+    
+    mainImage.addEventListener('click', () => {
+      zoomModal.style.display = 'flex';
+    });
+    
+    closeZoom.addEventListener('click', () => {
+      zoomModal.style.display = 'none';
+    });
+    
+    zoomModal.addEventListener('click', (e) => {
+      if (e.target === zoomModal) {
+        zoomModal.style.display = 'none';
+      }
+    });
+
+    // Color Selection
+    const colors = document.querySelectorAll('.color');
+    colors.forEach(color => {
+      color.addEventListener('click', () => {
+        colors.forEach(c => c.classList.remove('active'));
+        color.classList.add('active');
+        
+        const selectedColor = color.getAttribute('data-color');
+        document.querySelector('.product-title').textContent = 
+          `Premium Smart Watch Series X (${selectedColor})`;
+      });
+    });
+
+    // Size Selection
+    const sizes = document.querySelectorAll('.size');
+    sizes.forEach(size => {
+      size.addEventListener('click', () => {
+        sizes.forEach(s => s.classList.remove('active'));
+        size.classList.add('active');
+      });
+    });
+
+    // Quantity Selector
+    const minusBtn = document.querySelector('.minus');
+    const plusBtn = document.querySelector('.plus');
+    const quantityInput = document.querySelector('.quantity');
+    
+    minusBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value);
+      if (value > 1) {
+        quantityInput.value = value - 1;
+      }
+    });
+    
+    plusBtn.addEventListener('click', () => {
+      let value = parseInt(quantityInput.value);
+      if (value < 10) {
+        quantityInput.value = value + 1;
+      }
+    });
+    
+    quantityInput.addEventListener('change', () => {
+      let value = parseInt(quantityInput.value);
+      if (value < 1) quantityInput.value = 1;
+      if (value > 10) quantityInput.value = 10;
+    });
+
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const tabId = tab.getAttribute('data-tab');
+        
+        // Update active tab
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Show active tab pane
+        tabPanes.forEach(pane => pane.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+      });
+    });
+
+    // Add to Cart
+    const addToCartBtn = document.getElementById('addToCart');
+    const buyNowBtn = document.getElementById('buyNow');
+    const addToWishlistBtn = document.getElementById('addToWishlist');
+    const notification = document.getElementById('notification');
+    const cartBadge = document.querySelector('.cart-badge');
+    
+    function showNotification(message) {
+      notification.textContent = message;
+      notification.style.display = 'block';
+      
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+    
+    addToCartBtn.addEventListener('click', () => {
+      const selectedColor = document.querySelector('.color.active').getAttribute('data-color');
+      const selectedSize = document.querySelector('.size.active').getAttribute('data-size');
+      const quantity = quantityInput.value;
+      
+      // Update cart badge
+      let currentCount = parseInt(cartBadge.textContent);
+      cartBadge.textContent = currentCount + parseInt(quantity);
+      
+      showNotification(`Added ${quantity} × Smart Watch (${selectedColor}, ${selectedSize}) to cart!`);
+    });
+    
+    buyNowBtn.addEventListener('click', () => {
+      const selectedColor = document.querySelector('.color.active').getAttribute('data-color');
+      const selectedSize = document.querySelector('.size.active').getAttribute('data-size');
+      const quantity = quantityInput.value;
+      
+      alert(`Proceeding to checkout with ${quantity} × Smart Watch (${selectedColor}, ${selectedSize})`);
+      // In real app, redirect to checkout page
+    });
+    
+    addToWishlistBtn.addEventListener('click', () => {
+      const heartIcon = addToWishlistBtn.querySelector('i');
+      if (heartIcon.classList.contains('far')) {
+        heartIcon.classList.remove('far');
+        heartIcon.classList.add('fas');
+        showNotification('Added to wishlist!');
+      } else {
+        heartIcon.classList.remove('fas');
+        heartIcon.classList.add('far');
+        showNotification('Removed from wishlist!');
+      }
+    });
+
+    // Search functionality
+    document.querySelector('.fa-search').addEventListener('click', () => {
+      const searchTerm = prompt('Search products...');
+      if (searchTerm) {
+        alert(`Searching for: "${searchTerm}"`);
+        // In real app, redirect to search results page
+      }
+    });
+
+    // Cart click
+    document.querySelector('.fa-shopping-cart').addEventListener('click', () => {
+      alert('Opening shopping cart...');
+      // In real app, redirect to cart page
+    });
+
+    // Close menu when clicking outside (mobile)
+    document.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+          menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      }
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Ctrl + D for dark mode toggle (if you add it later)
+      if (e.ctrlKey && e.key === 'd') {
+        e.preventDefault();
+        // Add dark mode toggle here if needed
+      }
+      
+      // Escape to close zoom modal
+      if (e.key === 'Escape' && zoomModal.style.display === 'flex') {
+        zoomModal.style.display = 'none';
+      }
+    });
+
+  </script>
+
+</body>
+</html>
