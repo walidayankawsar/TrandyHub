@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Smart Watches | TrendyHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendyHub - Best Deals & Trending Products</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root {
@@ -11,8 +11,8 @@
       --secondary: #667eea;
       --dark: #1a1a1a;
       --light: #f8f9fa;
-      --gray: #6c757d;
-      --border: #e0e0e0;
+      --gradient: linear-gradient(135deg, #667eea, #764ba2);
+
     }
     
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -21,12 +21,16 @@
       background: var(--light);
       color: #333;
       line-height: 1.6;
+      overflow-x: hidden;
     }
     
     /* Navbar */
     .navbar {
+      position: sticky;
+      top: 0;
       background: white;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
       padding: 1rem 5%;
       display: flex;
       justify-content: space-between;
@@ -39,9 +43,10 @@
       color: var(--primary); 
     }
     
+    /* Desktop Nav Links */
     .nav-links {
       display: flex;
-      gap: 20px;
+      gap: 25px;
       align-items: center;
     }
     
@@ -49,8 +54,30 @@
       text-decoration: none; 
       color: #333; 
       font-weight: 500;
+      white-space: nowrap;
+      position: relative;
     }
     
+    .nav-links a:hover { 
+      color: var(--primary); 
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Nav Icons */
     .nav-icons { 
       display: flex;
       gap: 1.5rem;
@@ -60,7 +87,327 @@
     .nav-icons a { 
       color: var(--dark); 
       font-size: 1.4rem;
+      transition: all 0.3s;
     }
+    
+    .nav-icons a:hover { 
+      color: var(--primary); 
+      transform: translateY(-2px);
+    }
+    
+    /* Cart Badge */
+    .cart-container {
+      position: relative;
+    }
+    
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--dark);
+      cursor: pointer;
+    }
+    
+    
+    
+    /* Newsletter */
+    .newsletter {
+      background: var(--gradient);
+      color: white;
+      text-align: center;
+      padding: 3rem 5%;
+      margin-top: 3rem;
+    }
+    
+    .newsletter h2 { 
+      font-size: 1.8rem; 
+      margin-bottom: 1rem; 
+    }
+    
+    .newsletter p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .newsletter-form { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column;
+      gap: 1rem; 
+    }
+    
+    .newsletter input { 
+      padding: 1rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-size: 1rem; 
+    }
+    
+    .newsletter button { 
+      background: white; 
+      color: var(--primary); 
+      padding: 1rem 2rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+    
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      text-decoration: none;
+    }
+    
+    .whatsapp-float:hover { 
+      transform: scale(1.1); 
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    footer a {
+      color: #ff3366;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+      
+      
+      .newsletter-form {
+        flex-direction: row;
+      }
+      
+      .newsletter input {
+        flex: 1;
+      }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+    }
+    
+      
+      .products {
+        grid-template-columns: 1fr;
+      }
+      
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 200px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 0.5rem 0;
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    .dropdown-content a {
+      padding: 0.7rem 1rem;
+      display: block;
+      color: #333;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
+      color: var(--primary);
+    }
+
+    /*  Show on Hover */
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+
+
+
+    /* Theme Toggle Icon */
+    .theme-toggle i {
+      font-size: 1.5rem;   /* size fixed */
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .theme-toggle i:hover {
+      color: var(--primary);
+      transform: rotate(15deg);
+    }
+
+    /* Dark Theme */
+    body.dark-mode {
+      background: #121212;
+      color: #f1f1f1;
+    }
+
+    body.dark-mode .navbar,
+    
+ 
+    body.dark-mode .newsletter {
+      background: #1e1e1e;
+      color: #f1f1f1;
+    }
+
+
+    body.dark-mode .nav-links a {
+      color: #f1f1f1;
+    }
+
+    body.dark-mode footer {
+      background: black;
+    }
+
+
+/* Dark mode icon fix */
+body.dark-mode .nav-icons a,
+body.dark-mode .theme-toggle i {
+  color: #ffffff;
+}
+
+body.dark-mode .nav-icons a:hover,
+body.dark-mode .theme-toggle i:hover {
+  color: var(--primary);
+}
+
+
+
+
+body.dark-mode .dropdown-content {
+  background: #1e1e1e;
+}
+
+body.dark-mode .dropdown-content a {
+  color: #ffffff;
+}
+
+body.dark-mode .dropdown-content a:hover {
+  background: #333;
+}
+
+
+/* Search bar */
+/* Search Slide Bar */
+.search-bar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+  padding: 2rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  transition: 0.4s ease;
+  z-index: 2000;
+}
+
+.search-bar.active {
+  left: 0;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 0.7rem 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Dark Mode Support */
+body.dark-mode .search-bar {
+  background: #1e1e1e;
+}
+
+body.dark-mode .search-bar input {
+  background: #333;
+  color: white;
+  border: 1px solid #444;
+}
+
+
+
+  </style>
+
+
+
+
+
+
+  <style>
+
     
     /* Filter & Sort Bar */
     .filter-sort-bar {
@@ -709,30 +1056,77 @@
     }
   </style>
 </head>
-<body>
+
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">TrendyHub</div>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#products">Shop</a>
+
+      <!-- Category Dropdown -->
+      <div class="dropdown">
+        <a href="#category" class="dropbtn">Category <i class="fas fa-angle-down"></i></a>
+        <div class="dropdown-content">
+          <a href="#">Flash Sale</a>
+          <a href="#">Trending Product</a>
+          <a href="#">Men</a>
+          <a href="#">Women</a>
+        </div>
+      </div>
+
+      <a href="#new">New Arrivals</a>
+      <a href="#sale">Sale</a>
+      <!-- Slide Search Bar -->
+      <div class="search-bar" id="searchBar">
+        <input type="text" placeholder="Search products...">
+        <button onclick="toggleSearch()"><i class="fas fa-times"></i></button>
+      </div>
+
+    </div>
+
+
+    
+    <div class="nav-icons">
+      <a href="javascript:void(0)" onclick="toggleSearch()">
+        <i class="fas fa-search"></i>
+      </a>
+
+      <div class="cart-container">
+        <a href="#cart"><i class="fas fa-shopping-cart"></i></a>
+        <span class="cart-badge">3</span>
+      </div>
+      <a href="#user"><i class="fas fa-user"></i></a>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </div>
+
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- Checkboxes for CSS-only functionality -->
   <input type="checkbox" id="show-list">
   <input type="checkbox" id="show-filters">
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="logo">TrendyHub</div>
-    
-    <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#products">Shop</a>
-      <a href="#category">Category</a>
-      <a href="#new">New Arrivals</a>
-      <a href="#sale">Sale</a>
-    </div>
-    
-    <div class="nav-icons">
-      <a href="#search"><i class="fas fa-search"></i></a>
-      <a href="#cart"><i class="fas fa-shopping-cart"></i></a>
-      <a href="#user"><i class="fas fa-user"></i></a>
-    </div>
-  </nav>
 
   <!-- Filter & Sort Bar -->
   <div class="filter-sort-bar">
@@ -1405,10 +1799,75 @@
     </div>
   </div>
 
-  <!-- Simple Footer -->
-  <footer style="background: var(--dark); color: #aaa; text-align: center; padding: 2rem 1rem; margin-top: 3rem;">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2>Stay Updated – Get Exclusive Deals!</h2>
+    <p>Subscribe and never miss our flash sales & new arrivals</p>
+    <form class="newsletter-form" action="#" method="get">
+      <input type="email" placeholder="Enter your email..." required>
+      <button type="submit">Subscribe Now</button>
+    </form>
+  </section>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/8801712345678" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- Footer -->
+  <footer>
     <p>© 2026 TrendyHub. All Rights Reserved.</p>
+    <p>
+      <a href="#privacy">Privacy Policy</a> | 
+      <a href="#terms">Terms of Service</a> | 
+      <a href="#contact">Contact Us</a>
+    </p>
   </footer>
+
+
+
+
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+
+  const icon = document.getElementById("themeIcon");
+
+  if (document.body.classList.contains("dark-mode")) {
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+  } else {
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+  }
+}
+
+
+
+function toggleSearch() {
+  document.getElementById("searchBar").classList.toggle("active");
+}
+</script>
 
 </body>
 </html>
