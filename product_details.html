@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Premium Smart Watch Series X | TrendyHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendyHub - Best Deals & Trending Products</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     :root {
@@ -11,11 +11,12 @@
       --secondary: #667eea;
       --dark: #1a1a1a;
       --light: #f8f9fa;
-      --gray: #6c757d;
-      --success: #28a745;
+      --gradient: linear-gradient(135deg, #667eea, #764ba2);
     }
     
     * { margin:0; padding:0; box-sizing:border-box; }
+
+
     body {
       font-family: 'Segoe UI', system-ui, sans-serif;
       background: var(--light);
@@ -41,17 +42,13 @@
       font-size: 1.8rem; 
       font-weight: bold; 
       color: var(--primary); 
-      text-decoration: none;
     }
     
+    /* Desktop Nav Links */
     .nav-links {
       display: flex;
       gap: 25px;
       align-items: center;
-      margin: 0 auto;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
     }
     
     .nav-links a { 
@@ -59,7 +56,6 @@
       color: #333; 
       font-weight: 500;
       white-space: nowrap;
-      padding: 5px 0;
       position: relative;
     }
     
@@ -67,19 +63,40 @@
       color: var(--primary); 
     }
     
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Nav Icons */
     .nav-icons { 
       display: flex;
       gap: 1.5rem;
       align-items: center;
-      margin-left: auto;
     }
     
-    .nav-icons i { 
-      font-size: 1.4rem; 
-      cursor: pointer; 
+    .nav-icons a { 
       color: var(--dark); 
+      font-size: 1.4rem;
+      transition: all 0.3s;
     }
     
+    .nav-icons a:hover { 
+      color: var(--primary); 
+      transform: translateY(-2px);
+    }
+    
+    /* Cart Badge */
     .cart-container {
       position: relative;
     }
@@ -100,6 +117,7 @@
       font-weight: bold;
     }
     
+    /* Mobile Menu Toggle */
     .menu-toggle {
       display: none;
       background: none;
@@ -109,22 +127,281 @@
       cursor: pointer;
     }
     
-    /* Breadcrumb */
-    .breadcrumb {
-      padding: 1rem 5%;
-      background: #f8f9fa;
-      font-size: 0.9rem;
+    
+    
+    /* Newsletter */
+    .newsletter {
+      background: var(--gradient);
+      color: white;
+      text-align: center;
+      padding: 3rem 5%;
+      margin-top: 3rem;
     }
     
-    .breadcrumb a {
-      color: var(--primary);
+    .newsletter h2 { 
+      font-size: 1.8rem; 
+      margin-bottom: 1rem; 
+    }
+    
+    .newsletter p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .newsletter-form { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column;
+      gap: 1rem; 
+    }
+    
+    .newsletter input { 
+      padding: 1rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-size: 1rem; 
+    }
+    
+    .newsletter button { 
+      background: white; 
+      color: var(--primary); 
+      padding: 1rem 2rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+    
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
       text-decoration: none;
     }
     
-    .breadcrumb span {
-      color: var(--gray);
+    .whatsapp-float:hover { 
+      transform: scale(1.1); 
     }
     
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    footer a {
+      color: #ff3366;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+      
+      
+      .newsletter-form {
+        flex-direction: row;
+      }
+      
+      .newsletter input {
+        flex: 1;
+      }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+    }
+    
+      
+      .products {
+        grid-template-columns: 1fr;
+      }
+      
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 200px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 0.5rem 0;
+      display: none;
+      flex-direction: column;
+      z-index: 999;
+    }
+
+    .dropdown-content a {
+      padding: 0.7rem 1rem;
+      display: block;
+      color: #333;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
+      color: var(--primary);
+    }
+
+    /*  Show on Hover */
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+
+
+
+    /* Theme Toggle Icon */
+    .theme-toggle i {
+      font-size: 1.5rem;   /* size fixed */
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .theme-toggle i:hover {
+      color: var(--primary);
+      transform: rotate(15deg);
+    }
+
+    /* Dark Theme */
+    body.dark-mode {
+      background: #121212;
+      color: #f1f1f1;
+    }
+
+    body.dark-mode .navbar,
+    
+ 
+    body.dark-mode .newsletter {
+      background: #1e1e1e;
+      color: #f1f1f1;
+    }
+
+
+    body.dark-mode .nav-links a {
+      color: #f1f1f1;
+    }
+
+    body.dark-mode footer {
+      background: black;
+    }
+
+
+/* Dark mode icon fix */
+body.dark-mode .nav-icons a,
+body.dark-mode .theme-toggle i {
+  color: #ffffff;
+}
+
+body.dark-mode .nav-icons a:hover,
+body.dark-mode .theme-toggle i:hover {
+  color: var(--primary);
+}
+
+
+
+
+body.dark-mode .dropdown-content {
+  background: #1e1e1e;
+}
+
+body.dark-mode .dropdown-content a {
+  color: #ffffff;
+}
+
+body.dark-mode .dropdown-content a:hover {
+  background: #333;
+}
+
+
+/* Search bar */
+/* Search Slide Bar */
+.search-bar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+  padding: 2rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  transition: 0.4s ease;
+  z-index: 2000;
+}
+
+.search-bar.active {
+  left: 0;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 0.7rem 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Dark Mode Support */
+body.dark-mode .search-bar {
+  background: #1e1e1e;
+}
+
+body.dark-mode .search-bar input {
+  background: #333;
+  color: white;
+  border: 1px solid #444;
+}
+
+
+
+  </style>
+  <style>
     /* Product Container */
     .product-container {
       max-width: 1400px;
@@ -195,7 +472,7 @@
     .product-title {
       font-size: 2.2rem;
       margin-bottom: 0.5rem;
-      color: var(--dark);
+      color: var(--white);
     }
     
     .product-brand {
@@ -432,8 +709,12 @@
     .product-meta {
       margin: 2rem 0;
       padding: 1.5rem;
-      background: #f8f9fa;
+      background: #c7dcf1;
       border-radius: 15px;
+    }
+
+    body.dark-mode .product-meta {
+      background: #1e1e1e;
     }
     
     .meta-item {
@@ -541,161 +822,8 @@
       color: var(--gray);
       font-size: 0.9rem;
     }
-    
-    /* Related Products */
-    .related-products {
-      max-width: 1400px;
-      margin: 4rem auto;
-      padding: 0 5%;
-    }
-    
-    .section-title {
-      font-size: 2rem;
-      margin-bottom: 2rem;
-      color: var(--dark);
-    }
-    
-    .related-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 2rem;
-    }
-    
-    .related-card {
-      background: white;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-      transition: all 0.3s;
-    }
-    
-    .related-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-    }
-    
-    .related-img {
-      height: 200px;
-      overflow: hidden;
-    }
-    
-    .related-img img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.4s;
-    }
-    
-    .related-card:hover .related-img img {
-      transform: scale(1.1);
-    }
-    
-    .related-info {
-      padding: 1.5rem;
-    }
-    
-    .related-info h4 {
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
-    }
-    
-    .related-price {
-      color: var(--primary);
-      font-weight: bold;
-      font-size: 1.3rem;
-    }
-    
-    /* WhatsApp Float */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #25D366;
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 2rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 999;
-      transition: 0.3s;
-    }
-    
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-    }
-    
-    /* Footer */
-    footer {
-      background: var(--dark);
-      color: #aaa;
-      text-align: center;
-      padding: 3rem 1rem;
-      margin-top: 4rem;
-    }
-    
-    footer a {
-      color: #ff3366;
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-    
-    /* Zoom Modal */
-    .zoom-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      z-index: 1001;
-      justify-content: center;
-      align-items: center;
-    }
-    
-    .zoom-content {
-      max-width: 90%;
-      max-height: 90%;
-      position: relative;
-    }
-    
-    .zoom-content img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-    }
-    
-    .close-zoom {
-      position: absolute;
-      top: -40px;
-      right: 0;
-      color: white;
-      font-size: 2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-    }
-    
-    /* Notification */
-    .notification {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      background: var(--success);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      display: none;
-      z-index: 1002;
-      animation: slideIn 0.3s ease;
-    }
-    
+  
+      
     @keyframes slideIn {
       from { transform: translateX(100%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
@@ -791,47 +919,80 @@
         gap: 0.5rem;
       }
       
-      .related-grid {
-        grid-template-columns: 1fr;
-      }
     }
     
   </style>
+
 </head>
 <body>
 
   <!-- Navbar -->
   <nav class="navbar">
-    <a href="index.html" class="logo">TrendyHub</a>
-    
-    <div class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="category.html">Category</a>
-      <a href="new-arrivals.html">New Arrivals</a>
-      <a href="sale.html">Sale</a>
+    <div class="logo">TrendyHub</div>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#products">Shop</a>
+
+      <!-- Category Dropdown -->
+      <div class="dropdown">
+        <a href="#category" class="dropbtn">Category <i class="fas fa-angle-down"></i></a>
+        <div class="dropdown-content">
+          <a href="#">Flash Sale</a>
+          <a href="#">Trending Product</a>
+          <a href="#">Men</a>
+          <a href="#">Women</a>
+        </div>
+      </div>
+
+      <a href="#new">New Arrivals</a>
+      <a href="#sale">Sale</a>
+      <!-- Slide Search Bar -->
+      <div class="search-bar" id="searchBar">
+        <input type="text" placeholder="Search products...">
+        <button onclick="toggleSearch()"><i class="fas fa-times"></i></button>
+      </div>
+
     </div>
-    
-    <button class="menu-toggle" id="menuToggle">
-      <i class="fas fa-bars"></i>
-    </button>
+
+
     
     <div class="nav-icons">
-      <i class="fas fa-search" title="Search"></i>
+      <a href="javascript:void(0)" onclick="toggleSearch()">
+        <i class="fas fa-search"></i>
+      </a>
+
       <div class="cart-container">
-        <i class="fas fa-shopping-cart" title="Shopping Cart"></i>
+        <a href="#cart"><i class="fas fa-shopping-cart"></i></a>
         <span class="cart-badge">3</span>
       </div>
+      <a href="#user"><i class="fas fa-user"></i></a>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </div>
+
     </div>
   </nav>
 
-  <!-- Breadcrumb -->
-  <div class="breadcrumb">
-    <a href="index.html">Home</a> › 
-    <a href="category.html">Electronics</a> › 
-    <a href="smart-watches.html">Smart Watches</a> › 
-    <span>Premium Smart Watch Series X</span>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- Product Container -->
   <div class="product-container">
@@ -1144,92 +1305,33 @@
     </div>
   </div>
 
-  <!-- Related Products -->
-  <div class="related-products">
-    <h2 class="section-title">You May Also Like</h2>
-    <div class="related-grid">
-      
-      <div class="related-card">
-        <a href="product-earbuds.html" style="text-decoration: none; color: inherit;">
-          <div class="related-img">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wireless Earbuds">
-          </div>
-          <div class="related-info">
-            <h4>Noise-Cancelling Wireless Earbuds</h4>
-            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-            <div class="related-price">$39.99</div>
-          </div>
-        </a>
-      </div>
-      
-      <div class="related-card">
-        <a href="product-fitness-band.html" style="text-decoration: none; color: inherit;">
-          <div class="related-img">
-            <img src="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Fitness Band">
-          </div>
-          <div class="related-info">
-            <h4>Advanced Fitness Band Pro</h4>
-            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-            <div class="related-price">$29.99</div>
-          </div>
-        </a>
-      </div>
-      
-      <div class="related-card">
-        <a href="product-wireless-charger.html" style="text-decoration: none; color: inherit;">
-          <div class="related-img">
-            <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Wireless Charger">
-          </div>
-          <div class="related-info">
-            <h4>Fast Wireless Charging Pad</h4>
-            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="far fa-star"></i>
-            </div>
-            <div class="related-price">$24.99</div>
-          </div>
-        </a>
-      </div>
-      
-      <div class="related-card">
-        <a href="product-bluetooth-speaker.html" style="text-decoration: none; color: inherit;">
-          <div class="related-img">
-            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Bluetooth Speaker">
-          </div>
-          <div class="related-info">
-            <h4>Portable Bluetooth Speaker</h4>
-            <div class="stars" style="font-size: 0.9rem; margin: 0.5rem 0;">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-            <div class="related-price">$32.99</div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>
 
-  <!-- WhatsApp Float -->
-  <a href="https://wa.me/8801712345678?text=Hi%20I%20have%20a%20question%20about%20Premium%20Smart%20Watch%20Series%20X" 
-     class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2>Stay Updated – Get Exclusive Deals!</h2>
+    <p>Subscribe and never miss our flash sales & new arrivals</p>
+    <form class="newsletter-form" action="#" method="get">
+      <input type="email" placeholder="Enter your email..." required>
+      <button type="submit">Subscribe Now</button>
+    </form>
+  </section>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/8801712345678" class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
 
@@ -1237,229 +1339,36 @@
   <footer>
     <p>© 2026 TrendyHub. All Rights Reserved.</p>
     <p>
-      <a href="#">Privacy Policy</a> | 
-      <a href="#">Terms of Service</a> | 
-      <a href="#">Contact Us</a>
+      <a href="#privacy">Privacy Policy</a> | 
+      <a href="#terms">Terms of Service</a> | 
+      <a href="#contact">Contact Us</a>
     </p>
   </footer>
 
-  <!-- Zoom Modal -->
-  <div class="zoom-modal" id="zoomModal">
-    <div class="zoom-content">
-      <button class="close-zoom" id="closeZoom">&times;</button>
-      <img id="zoomedImage" src="" alt="">
-    </div>
-  </div>
 
-  <!-- Notification -->
-  <div class="notification" id="notification">
-    Product added to cart successfully!
-  </div>
 
-  <script>
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-    
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      menuToggle.innerHTML = navLinks.classList.contains('active') 
-        ? '<i class="fas fa-times"></i>' 
-        : '<i class="fas fa-bars"></i>';
-    });
 
-    // Image Gallery
-    const thumbnails = document.querySelectorAll('.thumbnail');
-    const mainImage = document.getElementById('mainImage');
-    const zoomImage = document.getElementById('zoomImage');
-    const zoomedImage = document.getElementById('zoomedImage');
-    
-    thumbnails.forEach(thumb => {
-      thumb.addEventListener('click', () => {
-        // Update active thumbnail
-        thumbnails.forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
-        
-        // Update main image
-        const newImage = thumb.getAttribute('data-image');
-        zoomImage.src = newImage;
-        zoomedImage.src = newImage;
-      });
-    });
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
 
-    // Image Zoom
-    const zoomModal = document.getElementById('zoomModal');
-    const closeZoom = document.getElementById('closeZoom');
-    
-    mainImage.addEventListener('click', () => {
-      zoomModal.style.display = 'flex';
-    });
-    
-    closeZoom.addEventListener('click', () => {
-      zoomModal.style.display = 'none';
-    });
-    
-    zoomModal.addEventListener('click', (e) => {
-      if (e.target === zoomModal) {
-        zoomModal.style.display = 'none';
-      }
-    });
+  const icon = document.getElementById("themeIcon");
 
-    // Color Selection
-    const colors = document.querySelectorAll('.color');
-    colors.forEach(color => {
-      color.addEventListener('click', () => {
-        colors.forEach(c => c.classList.remove('active'));
-        color.classList.add('active');
-        
-        const selectedColor = color.getAttribute('data-color');
-        document.querySelector('.product-title').textContent = 
-          `Premium Smart Watch Series X (${selectedColor})`;
-      });
-    });
+  if (document.body.classList.contains("dark-mode")) {
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+  } else {
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+  }
+}
 
-    // Size Selection
-    const sizes = document.querySelectorAll('.size');
-    sizes.forEach(size => {
-      size.addEventListener('click', () => {
-        sizes.forEach(s => s.classList.remove('active'));
-        size.classList.add('active');
-      });
-    });
 
-    // Quantity Selector
-    const minusBtn = document.querySelector('.minus');
-    const plusBtn = document.querySelector('.plus');
-    const quantityInput = document.querySelector('.quantity');
-    
-    minusBtn.addEventListener('click', () => {
-      let value = parseInt(quantityInput.value);
-      if (value > 1) {
-        quantityInput.value = value - 1;
-      }
-    });
-    
-    plusBtn.addEventListener('click', () => {
-      let value = parseInt(quantityInput.value);
-      if (value < 10) {
-        quantityInput.value = value + 1;
-      }
-    });
-    
-    quantityInput.addEventListener('change', () => {
-      let value = parseInt(quantityInput.value);
-      if (value < 1) quantityInput.value = 1;
-      if (value > 10) quantityInput.value = 10;
-    });
 
-    // Tabs
-    const tabs = document.querySelectorAll('.tab');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const tabId = tab.getAttribute('data-tab');
-        
-        // Update active tab
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        // Show active tab pane
-        tabPanes.forEach(pane => pane.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-      });
-    });
-
-    // Add to Cart
-    const addToCartBtn = document.getElementById('addToCart');
-    const buyNowBtn = document.getElementById('buyNow');
-    const addToWishlistBtn = document.getElementById('addToWishlist');
-    const notification = document.getElementById('notification');
-    const cartBadge = document.querySelector('.cart-badge');
-    
-    function showNotification(message) {
-      notification.textContent = message;
-      notification.style.display = 'block';
-      
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 3000);
-    }
-    
-    addToCartBtn.addEventListener('click', () => {
-      const selectedColor = document.querySelector('.color.active').getAttribute('data-color');
-      const selectedSize = document.querySelector('.size.active').getAttribute('data-size');
-      const quantity = quantityInput.value;
-      
-      // Update cart badge
-      let currentCount = parseInt(cartBadge.textContent);
-      cartBadge.textContent = currentCount + parseInt(quantity);
-      
-      showNotification(`Added ${quantity} × Smart Watch (${selectedColor}, ${selectedSize}) to cart!`);
-    });
-    
-    buyNowBtn.addEventListener('click', () => {
-      const selectedColor = document.querySelector('.color.active').getAttribute('data-color');
-      const selectedSize = document.querySelector('.size.active').getAttribute('data-size');
-      const quantity = quantityInput.value;
-      
-      alert(`Proceeding to checkout with ${quantity} × Smart Watch (${selectedColor}, ${selectedSize})`);
-      // In real app, redirect to checkout page
-    });
-    
-    addToWishlistBtn.addEventListener('click', () => {
-      const heartIcon = addToWishlistBtn.querySelector('i');
-      if (heartIcon.classList.contains('far')) {
-        heartIcon.classList.remove('far');
-        heartIcon.classList.add('fas');
-        showNotification('Added to wishlist!');
-      } else {
-        heartIcon.classList.remove('fas');
-        heartIcon.classList.add('far');
-        showNotification('Removed from wishlist!');
-      }
-    });
-
-    // Search functionality
-    document.querySelector('.fa-search').addEventListener('click', () => {
-      const searchTerm = prompt('Search products...');
-      if (searchTerm) {
-        alert(`Searching for: "${searchTerm}"`);
-        // In real app, redirect to search results page
-      }
-    });
-
-    // Cart click
-    document.querySelector('.fa-shopping-cart').addEventListener('click', () => {
-      alert('Opening shopping cart...');
-      // In real app, redirect to cart page
-    });
-
-    // Close menu when clicking outside (mobile)
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
-          menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-      }
-    });
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      // Ctrl + D for dark mode toggle (if you add it later)
-      if (e.ctrlKey && e.key === 'd') {
-        e.preventDefault();
-        // Add dark mode toggle here if needed
-      }
-      
-      // Escape to close zoom modal
-      if (e.key === 'Escape' && zoomModal.style.display === 'flex') {
-        zoomModal.style.display = 'none';
-      }
-    });
-
-  </script>
+function toggleSearch() {
+  document.getElementById("searchBar").classList.toggle("active");
+}
+</script>
 
 </body>
 </html>
