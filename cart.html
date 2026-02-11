@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <title>Shopping Cart | TrendyHub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrendyHub - Best Deals & Trending Products</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
+
     :root {
       --primary: #ff3366;
       --secondary: #667eea;
@@ -16,6 +17,7 @@
       --gray: #6c757d;
       --border: #e0e0e0;
       --shadow: 0 5px 15px rgba(0,0,0,0.08);
+      --gradient: linear-gradient(135deg, #667eea, #764ba2);
     }
     
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -24,6 +26,7 @@
       background: var(--light);
       color: #333;
       line-height: 1.6;
+      overflow-x: hidden;
     }
     
     /* Navbar */
@@ -43,17 +46,13 @@
       font-size: 1.8rem; 
       font-weight: bold; 
       color: var(--primary); 
-      text-decoration: none;
     }
     
+    /* Desktop Nav Links */
     .nav-links {
       display: flex;
       gap: 25px;
       align-items: center;
-      margin: 0 auto;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
     }
     
     .nav-links a { 
@@ -61,7 +60,6 @@
       color: #333; 
       font-weight: 500;
       white-space: nowrap;
-      padding: 5px 0;
       position: relative;
     }
     
@@ -69,19 +67,40 @@
       color: var(--primary); 
     }
     
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    
+    /* Nav Icons */
     .nav-icons { 
       display: flex;
       gap: 1.5rem;
       align-items: center;
-      margin-left: auto;
     }
     
-    .nav-icons i { 
-      font-size: 1.4rem; 
-      cursor: pointer; 
+    .nav-icons a { 
       color: var(--dark); 
+      font-size: 1.4rem;
+      transition: all 0.3s;
     }
     
+    .nav-icons a:hover { 
+      color: var(--primary); 
+      transform: translateY(-2px);
+    }
+    
+    /* Cart Badge */
     .cart-container {
       position: relative;
     }
@@ -102,6 +121,7 @@
       font-weight: bold;
     }
     
+    /* Mobile Menu Toggle */
     .menu-toggle {
       display: none;
       background: none;
@@ -111,40 +131,284 @@
       cursor: pointer;
     }
     
-    /* Breadcrumb */
-    .breadcrumb {
-      padding: 1rem 5%;
-      background: #f8f9fa;
-      font-size: 0.9rem;
+    
+    
+    
+    /* Newsletter */
+    .newsletter {
+      background: var(--gradient);
+      color: white;
+      text-align: center;
+      padding: 3rem 5%;
+      margin-top: 3rem;
     }
     
-    .breadcrumb a {
-      color: var(--primary);
+    .newsletter h2 { 
+      font-size: 1.8rem; 
+      margin-bottom: 1rem; 
+    }
+    
+    .newsletter p {
+      margin-bottom: 1.5rem;
+    }
+    
+    .newsletter-form { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column;
+      gap: 1rem; 
+    }
+    
+    .newsletter input { 
+      padding: 1rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-size: 1rem; 
+    }
+    
+    .newsletter button { 
+      background: white; 
+      color: var(--primary); 
+      padding: 1rem 2rem; 
+      border: none; 
+      border-radius: 50px; 
+      font-weight: bold; 
+      cursor: pointer; 
+    }
+    
+    /* WhatsApp Float Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
       text-decoration: none;
     }
     
-    .breadcrumb span {
-      color: var(--gray);
+    .whatsapp-float:hover { 
+      transform: scale(1.1); 
     }
     
-    /* Page Header */
-    .page-header {
-      padding: 2rem 5%;
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 3rem;
+    }
+    
+    footer a {
+      color: #ff3366;
+      text-decoration: none;
+      margin: 0 0.5rem;
+    }
+      
+      
+      .newsletter-form {
+        flex-direction: row;
+      }
+      
+      .newsletter input {
+        flex: 1;
+      }
+    
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+    }
+    
+      
+      .products {
+        grid-template-columns: 1fr;
+      }
+      
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+      
+
+
+    /* Dropdown */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      position: absolute;
+      top: 100%;
+      left: 0;
       background: white;
-      border-bottom: 1px solid var(--border);
+      min-width: 200px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 0.5rem 0;
+      display: none;
+      flex-direction: column;
+      z-index: 999;
     }
-    
-    .page-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      color: var(--dark);
+
+    .dropdown-content a {
+      padding: 0.7rem 1rem;
+      display: block;
+      color: #333;
+      text-decoration: none;
+      transition: 0.3s;
     }
-    
-    .page-header p {
-      color: var(--gray);
-      max-width: 600px;
+
+    .dropdown-content a:hover {
+      background: #f5f5f5;
+      color: var(--primary);
     }
+
+    /*  Show on Hover */
+    .dropdown:hover .dropdown-content {
+      display: flex;
+    }
+
+
+
+
+    /* Theme Toggle Icon */
+    .theme-toggle i {
+      font-size: 1.5rem;   /* size fixed */
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .theme-toggle i:hover {
+      color: var(--primary);
+      transform: rotate(15deg);
+    }
+
+    /* Dark Theme */
+    body.dark-mode {
+      background: #121212;
+      color: #f1f1f1;
+    }
+
+    body.dark-mode .navbar,
     
+ 
+    body.dark-mode .newsletter {
+      background: #1e1e1e;
+      color: #f1f1f1;
+    }
+
+
+    body.dark-mode .nav-links a {
+      color: #f1f1f1;
+    }
+
+    body.dark-mode footer {
+      background: black;
+    }
+
+
+/* Dark mode icon fix */
+body.dark-mode .nav-icons a,
+body.dark-mode .theme-toggle i {
+  color: #ffffff;
+}
+
+body.dark-mode .nav-icons a:hover,
+body.dark-mode .theme-toggle i:hover {
+  color: var(--primary);
+}
+
+
+
+
+body.dark-mode .dropdown-content {
+  background: #1e1e1e;
+}
+
+body.dark-mode .dropdown-content a {
+  color: #ffffff;
+}
+
+body.dark-mode .dropdown-content a:hover {
+  background: #333;
+}
+
+
+/* Search bar */
+/* Search Slide Bar */
+.search-bar {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  background: white;
+  box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+  padding: 2rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: start;
+  transition: 0.4s ease;
+  z-index: 2000;
+}
+
+.search-bar.active {
+  left: 0;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  background: var(--primary);
+  border: none;
+  color: white;
+  padding: 0.7rem 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Dark Mode Support */
+body.dark-mode .search-bar {
+  background: #1e1e1e;
+}
+
+body.dark-mode .search-bar input {
+  background: #333;
+  color: white;
+  border: 1px solid #444;
+}
+
+
+
+  </style>
+
+  <style>
+
     /* Main Container */
     .main-container {
       max-width: 1400px;
@@ -503,34 +767,13 @@
       justify-content: center;
       gap: 0.5rem;
     }
-    
-    /* Cart Actions */
-    .cart-actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
+
+
+    body.dark-mode .summary-card {
+      background: #1e1e1e;
     }
-    
-    .action-btn {
-      flex: 1;
-      padding: 0.8rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: white;
-      color: var(--dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      transition: all 0.3s;
-    }
-    
-    .action-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-    
+
+
     /* Recently Viewed */
     .recently-viewed {
       margin-top: 3rem;
@@ -584,66 +827,44 @@
       font-weight: bold;
       font-size: 0.9rem;
     }
-    
-    /* Notification */
-    .notification {
-      position: fixed;
-      top: 100px;
-      right: 20px;
-      background: var(--success);
-      color: white;
-      padding: 1rem 2rem;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      display: none;
-      z-index: 1002;
-      animation: slideIn 0.3s ease;
+
+
+    /* Cart Actions */
+    .cart-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
     }
     
-    @keyframes slideIn {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-    
-    /* WhatsApp Float */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #25D366;
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 2rem;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    .action-btn {
+      flex: 1;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      color: var(--dark);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 999;
-      transition: 0.3s;
+      gap: 0.5rem;
+      transition: all 0.3s;
     }
     
-    .whatsapp-float:hover {
-      transform: scale(1.1);
+    .action-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
     }
-    
-    /* Footer */
-    footer {
-      background: var(--dark);
-      color: #aaa;
-      text-align: center;
-      padding: 3rem 1rem;
-      margin-top: 4rem;
-    }
-    
-    footer a {
-      color: #ff3366;
-      text-decoration: none;
-      margin: 0 0.5rem;
-    }
-    
+
+
+  </style>
+
+
+
+
+
+
+  <style>
     /* Responsive */
     @media (max-width: 992px) {
       .main-container {
@@ -766,42 +987,70 @@
 
   <!-- Navbar -->
   <nav class="navbar">
-    <a href="index.html" class="logo">TrendyHub</a>
-    
-    <div class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="category.html">Category</a>
-      <a href="new-arrivals.html">New Arrivals</a>
-      <a href="sale.html">Sale</a>
+    <div class="logo">TrendyHub</div>
+
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#products">Shop</a>
+
+      <!-- Category Dropdown -->
+      <div class="dropdown">
+        <a href="#category" class="dropbtn">Category <i class="fas fa-angle-down"></i></a>
+        <div class="dropdown-content">
+          <a href="#">Flash Sale</a>
+          <a href="#">Trending Product</a>
+          <a href="#">Men</a>
+          <a href="#">Women</a>
+        </div>
+      </div>
+
+      <a href="#new">New Arrivals</a>
+      <a href="#sale">Sale</a>
+      <!-- Slide Search Bar -->
+      <div class="search-bar" id="searchBar">
+        <input type="text" placeholder="Search products...">
+        <button onclick="toggleSearch()"><i class="fas fa-times"></i></button>
+      </div>
+
     </div>
-    
-    <button class="menu-toggle" id="menuToggle">
-      <i class="fas fa-bars"></i>
-    </button>
+
+
     
     <div class="nav-icons">
-      <i class="fas fa-search" title="Search"></i>
+      <a href="javascript:void(0)" onclick="toggleSearch()">
+        <i class="fas fa-search"></i>
+      </a>
+
       <div class="cart-container">
-        <a href="cart.html" style="color: inherit;">
-          <i class="fas fa-shopping-cart" title="Shopping Cart"></i>
-          <span class="cart-badge" id="cartBadge">3</span>
-        </a>
+        <a href="#cart"><i class="fas fa-shopping-cart"></i></a>
+        <span class="cart-badge">3</span>
       </div>
+      <a href="#user"><i class="fas fa-user"></i></a>
+      <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon" id="themeIcon"></i>
+      </div>
+
     </div>
   </nav>
 
-  <!-- Breadcrumb -->
-  <div class="breadcrumb">
-    <a href="index.html">Home</a> › 
-    <span>Shopping Cart</span>
-  </div>
 
-  <!-- Page Header -->
-  <div class="page-header">
-    <h1>Shopping Cart</h1>
-    <p>Review your items and proceed to checkout</p>
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <!-- Main Container -->
   <div class="main-container">
@@ -1033,63 +1282,34 @@
     </div>
   </div>
 
-  <!-- Recently Viewed -->
-  <div class="main-container" style="grid-template-columns: 1fr;">
-    <div class="recently-viewed">
-      <h3 class="section-title">Recently Viewed</h3>
-      <div class="recent-grid">
-        
-        <div class="recent-item">
-          <div class="recent-image">
-            <img src="https://images.unsplash.com/photo-1579586337278-3f1deaa7e125?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                 alt="Sports Smart Watch">
-          </div>
-          <div class="recent-info">
-            <div class="recent-name">Sports Smart Watch</div>
-            <div class="recent-price">$59.99</div>
-          </div>
-        </div>
-        
-        <div class="recent-item">
-          <div class="recent-image">
-            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                 alt="Bluetooth Speaker">
-          </div>
-          <div class="recent-info">
-            <div class="recent-name">Bluetooth Speaker</div>
-            <div class="recent-price">$32.99</div>
-          </div>
-        </div>
-        
-        <div class="recent-item">
-          <div class="recent-image">
-            <img src="https://images.unsplash.com/photo-1576243345690-4e4b79b63288?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                 alt="Fitness Band Pro">
-          </div>
-          <div class="recent-info">
-            <div class="recent-name">Fitness Band Pro</div>
-            <div class="recent-price">$29.99</div>
-          </div>
-        </div>
-        
-        <div class="recent-item">
-          <div class="recent-image">
-            <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                 alt="Waterproof Watch">
-          </div>
-          <div class="recent-info">
-            <div class="recent-name">Waterproof Watch</div>
-            <div class="recent-price">$44.99</div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
 
-  <!-- WhatsApp Float -->
-  <a href="https://wa.me/8801712345678?text=Hi%20I%20need%20help%20with%20my%20cart" 
-     class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- Newsletter -->
+  <section class="newsletter">
+    <h2>Stay Updated – Get Exclusive Deals!</h2>
+    <p>Subscribe and never miss our flash sales & new arrivals</p>
+    <form class="newsletter-form" action="#" method="get">
+      <input type="email" placeholder="Enter your email..." required>
+      <button type="submit">Subscribe Now</button>
+    </form>
+  </section>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/8801712345678" class="whatsapp-float" target="_blank">
     <i class="fab fa-whatsapp"></i>
   </a>
 
@@ -1097,420 +1317,36 @@
   <footer>
     <p>© 2026 TrendyHub. All Rights Reserved.</p>
     <p>
-      <a href="#">Privacy Policy</a> | 
-      <a href="#">Terms of Service</a> | 
-      <a href="#">Contact Us</a>
+      <a href="#privacy">Privacy Policy</a> | 
+      <a href="#terms">Terms of Service</a> | 
+      <a href="#contact">Contact Us</a>
     </p>
   </footer>
 
-  <!-- Notification -->
-  <div class="notification" id="notification">
-    Cart updated successfully!
-  </div>
 
-  <script>
-    // Mobile Menu Toggle
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
-    
-    menuToggle.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-      menuToggle.innerHTML = navLinks.classList.contains('active') 
-        ? '<i class="fas fa-times"></i>' 
-        : '<i class="fas fa-bars"></i>';
-    });
 
-    // Cart Management
-    const cartItems = document.getElementById('cartItems');
-    const cartBadge = document.getElementById('cartBadge');
-    const itemCount = document.getElementById('itemCount');
-    const subtotal = document.getElementById('subtotal');
-    const shipping = document.getElementById('shipping');
-    const tax = document.getElementById('tax');
-    const discount = document.getElementById('discount');
-    const total = document.getElementById('total');
-    
-    // Initialize cart data
-    let cartData = [
-      { id: 1, name: 'Premium Smart Watch Series X', price: 49.99, quantity: 1, color: 'Black', size: '42mm' },
-      { id: 2, name: 'Noise-Cancelling Wireless Earbuds', price: 39.99, quantity: 2, color: 'Silver' },
-      { id: 3, name: 'RGB LED Strip Lights 10m', price: 24.99, quantity: 1, color: 'RGB', size: '10m' }
-    ];
-    
-    // Calculate totals
-    function calculateTotals() {
-      let itemTotalCount = 0;
-      let itemTotalPrice = 0;
-      
-      cartData.forEach(item => {
-        itemTotalCount += item.quantity;
-        itemTotalPrice += item.price * item.quantity;
-      });
-      
-      const shippingCost = itemTotalPrice > 50 ? 0 : 9.99;
-      const taxAmount = itemTotalPrice * 0.08;
-      const discountAmount = 15.00;
-      const finalTotal = itemTotalPrice + shippingCost + taxAmount - discountAmount;
-      
-      // Update UI
-      itemCount.textContent = itemTotalCount;
-      cartBadge.textContent = itemTotalCount;
-      subtotal.textContent = `$${itemTotalPrice.toFixed(2)}`;
-      shipping.textContent = shippingCost === 0 ? 'FREE' : `$${shippingCost.toFixed(2)}`;
-      tax.textContent = `$${taxAmount.toFixed(2)}`;
-      discount.textContent = `-$${discountAmount.toFixed(2)}`;
-      total.textContent = `$${finalTotal.toFixed(2)}`;
-    }
-    
-    // Update item totals
-    function updateItemTotal(itemElement) {
-      const qtyInput = itemElement.querySelector('.qty-input');
-      const priceElement = itemElement.querySelector('.current-price');
-      const totalElement = itemElement.querySelector('.item-total');
-      
-      const quantity = parseInt(qtyInput.value);
-      const price = parseFloat(priceElement.textContent.replace('$', ''));
-      const itemTotal = quantity * price;
-      
-      totalElement.textContent = `Total: $${itemTotal.toFixed(2)}`;
-      
-      // Update cart data
-      const itemId = parseInt(itemElement.getAttribute('data-id'));
-      const itemIndex = cartData.findIndex(item => item.id === itemId);
-      if (itemIndex !== -1) {
-        cartData[itemIndex].quantity = quantity;
-      }
-      
-      calculateTotals();
-    }
-    
-    // Quantity Control
-    cartItems.addEventListener('click', (e) => {
-      if (e.target.classList.contains('qty-btn')) {
-        const itemElement = e.target.closest('.cart-item');
-        const qtyInput = itemElement.querySelector('.qty-input');
-        let value = parseInt(qtyInput.value);
-        
-        if (e.target.classList.contains('minus')) {
-          if (value > 1) {
-            qtyInput.value = value - 1;
-          }
-        } else if (e.target.classList.contains('plus')) {
-          if (value < 10) {
-            qtyInput.value = value + 1;
-          }
-        }
-        
-        updateItemTotal(itemElement);
-        showNotification('Quantity updated', 'success');
-      }
-    });
-    
-    // Quantity input change
-    cartItems.addEventListener('change', (e) => {
-      if (e.target.classList.contains('qty-input')) {
-        const itemElement = e.target.closest('.cart-item');
-        let value = parseInt(e.target.value);
-        
-        if (value < 1) {
-          e.target.value = 1;
-          value = 1;
-        } else if (value > 10) {
-          e.target.value = 10;
-          value = 10;
-        }
-        
-        updateItemTotal(itemElement);
-        showNotification('Quantity updated', 'success');
-      }
-    });
-    
-    // Remove item
-    cartItems.addEventListener('click', (e) => {
-      if (e.target.closest('.remove-item')) {
-        const itemElement = e.target.closest('.cart-item');
-        const itemId = parseInt(itemElement.getAttribute('data-id'));
-        const itemName = itemElement.querySelector('.item-name').textContent;
-        
-        // Remove from cart data
-        cartData = cartData.filter(item => item.id !== itemId);
-        
-        // Remove from UI
-        itemElement.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-          itemElement.remove();
-          calculateTotals();
-          
-          if (cartData.length === 0) {
-            showEmptyCart();
-          }
-        }, 300);
-        
-        showNotification(`Removed ${itemName} from cart`, 'success');
-      }
-    });
-    
-    // Move to wishlist
-    cartItems.addEventListener('click', (e) => {
-      if (e.target.closest('.move-wishlist')) {
-        const itemElement = e.target.closest('.cart-item');
-        const itemId = parseInt(itemElement.getAttribute('data-id'));
-        const itemName = itemElement.querySelector('.item-name').textContent;
-        const heartIcon = e.target.closest('.move-wishlist').querySelector('i');
-        
-        // Toggle heart icon
-        if (heartIcon.classList.contains('far')) {
-          heartIcon.classList.remove('far');
-          heartIcon.classList.add('fas');
-          heartIcon.style.color = 'var(--primary)';
-          showNotification(`Added ${itemName} to wishlist`, 'success');
-        } else {
-          heartIcon.classList.remove('fas');
-          heartIcon.classList.add('far');
-          heartIcon.style.color = '';
-          showNotification(`Removed ${itemName} from wishlist`, 'success');
-        }
-      }
-    });
-    
-    // Clear cart
-    const clearCartBtn = document.getElementById('clearCartBtn');
-    clearCartBtn.addEventListener('click', () => {
-      if (cartData.length === 0) {
-        showNotification('Cart is already empty', 'warning');
-        return;
-      }
-      
-      if (confirm('Are you sure you want to clear your cart?')) {
-        cartData = [];
-        cartItems.innerHTML = '';
-        showEmptyCart();
-        calculateTotals();
-        showNotification('Cart cleared successfully', 'success');
-      }
-    });
-    
-    // Show empty cart
-    function showEmptyCart() {
-      cartItems.innerHTML = `
-        <div class="empty-cart">
-          <i class="fas fa-shopping-cart"></i>
-          <h3>Your cart is empty</h3>
-          <p>Looks like you haven't added any items to your cart yet.</p>
-          <button class="shop-btn" id="startShoppingBtn">
-            <i class="fas fa-shopping-bag"></i>
-            Start Shopping
-          </button>
-        </div>
-      `;
-      
-      // Add event listener to start shopping button
-      setTimeout(() => {
-        document.getElementById('startShoppingBtn').addEventListener('click', () => {
-          window.location.href = 'index.html';
-        });
-      }, 100);
-    }
-    
-    // Update cart
-    const updateCartBtn = document.getElementById('updateCartBtn');
-    updateCartBtn.addEventListener('click', () => {
-      calculateTotals();
-      showNotification('Cart updated successfully', 'success');
-    });
-    
-    // Save cart
-    const saveCartBtn = document.getElementById('saveCartBtn');
-    saveCartBtn.addEventListener('click', () => {
-      // In real app, save to localStorage or backend
-      localStorage.setItem('trendyhub_cart', JSON.stringify(cartData));
-      showNotification('Cart saved successfully', 'success');
-    });
-    
-    // Load saved cart
-    function loadSavedCart() {
-      const savedCart = localStorage.getItem('trendyhub_cart');
-      if (savedCart) {
-        cartData = JSON.parse(savedCart);
-        // In real app, update UI with saved cart data
-      }
-    }
-    
-    // Discount code
-    const applyCodeBtn = document.getElementById('applyCode');
-    const discountCode = document.getElementById('discountCode');
-    
-    applyCodeBtn.addEventListener('click', () => {
-      const code = discountCode.value.trim().toUpperCase();
-      
-      if (code === 'SAVE15') {
-        discount.textContent = '-$15.00';
-        calculateTotals();
-        showNotification('Discount code applied successfully!', 'success');
-        discountCode.disabled = true;
-        applyCodeBtn.disabled = true;
-        applyCodeBtn.textContent = 'Applied';
-      } else if (code === 'SAVE10') {
-        discount.textContent = '-$10.00';
-        calculateTotals();
-        showNotification('Discount code applied successfully!', 'success');
-        discountCode.disabled = true;
-        applyCodeBtn.disabled = true;
-        applyCodeBtn.textContent = 'Applied';
-      } else if (code === '') {
-        showNotification('Please enter a discount code', 'warning');
-      } else {
-        showNotification('Invalid discount code', 'error');
-      }
-    });
-    
-    // Checkout button
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    checkoutBtn.addEventListener('click', () => {
-      if (cartData.length === 0) {
-        showNotification('Your cart is empty', 'warning');
-        return;
-      }
-      
-      // Save cart before checkout
-      localStorage.setItem('trendyhub_cart', JSON.stringify(cartData));
-      
-      // Redirect to checkout page
-      window.location.href = 'checkout.html';
-    });
-    
-    // Continue shopping
-    const continueShoppingBtn = document.getElementById('continueShoppingBtn');
-    continueShoppingBtn.addEventListener('click', () => {
-      window.location.href = 'index.html';
-    });
-    
-    // Recently viewed items
-    const recentItems = document.querySelectorAll('.recent-item');
-    recentItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const productName = item.querySelector('.recent-name').textContent;
-        showNotification(`Added ${productName} to cart`, 'success');
-        
-        // In real app, add to cart and update UI
-        setTimeout(() => {
-          const newItem = {
-            id: Date.now(),
-            name: productName,
-            price: parseFloat(item.querySelector('.recent-price').textContent.replace('$', '')),
-            quantity: 1
-          };
-          
-          cartData.push(newItem);
-          calculateTotals();
-          
-          // Add to cart items list
-          if (!document.querySelector('.empty-cart')) {
-            const newCartItem = document.createElement('div');
-            newCartItem.className = 'cart-item';
-            newCartItem.setAttribute('data-id', newItem.id);
-            newCartItem.innerHTML = `
-              <div class="item-image">
-                <img src="${item.querySelector('img').src}" alt="${productName}">
-              </div>
-              
-              <div class="item-details">
-                <div class="item-name">${productName}</div>
-                
-                <div class="item-meta">
-                  <div class="item-color">
-                    <i class="fas fa-palette"></i>
-                    Color: Default
-                  </div>
-                </div>
-                
-                <div class="quantity-control">
-                  <button class="qty-btn minus">-</button>
-                  <input type="number" class="qty-input" value="1" min="1" max="10">
-                  <button class="qty-btn plus">+</button>
-                </div>
-                
-                <div class="item-actions">
-                  <button class="remove-item">
-                    <i class="fas fa-trash"></i>
-                    Remove
-                  </button>
-                  <button class="move-wishlist">
-                    <i class="far fa-heart"></i>
-                    Save for later
-                  </button>
-                </div>
-              </div>
-              
-              <div class="item-price">
-                <span class="current-price">$${newItem.price.toFixed(2)}</span>
-                <div class="item-total">Total: $${newItem.price.toFixed(2)}</div>
-              </div>
-            `;
-            
-            cartItems.insertBefore(newCartItem, cartItems.firstChild);
-          }
-        }, 500);
-      });
-    });
-    
-    // Search functionality
-    document.querySelector('.fa-search').addEventListener('click', () => {
-      const searchTerm = prompt('Search products...');
-      if (searchTerm) {
-        showNotification(`Searching for: "${searchTerm}"`);
-        // In real app, redirect to search results page
-      }
-    });
-    
-    // Notification System
-    function showNotification(message, type = 'success') {
-      const notification = document.getElementById('notification');
-      notification.textContent = message;
-      
-      // Set color based on type
-      if (type === 'success') {
-        notification.style.background = 'var(--success)';
-      } else if (type === 'error') {
-        notification.style.background = 'var(--primary)';
-      } else if (type === 'warning') {
-        notification.style.background = 'var(--warning)';
-      }
-      
-      notification.style.display = 'block';
-      
-      setTimeout(() => {
-        notification.style.display = 'none';
-      }, 3000);
-    }
-    
-    // Add slideOut animation
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes slideOut {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-      }
-    `;
-    document.head.appendChild(style);
-    
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      calculateTotals();
-      loadSavedCart();
-    });
-    
-    // Close menu when clicking outside (mobile)
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768) {
-        if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
-          navLinks.classList.remove('active');
-          menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-      }
-    });
 
-  </script>
+<script>
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+
+  const icon = document.getElementById("themeIcon");
+
+  if (document.body.classList.contains("dark-mode")) {
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
+  } else {
+    icon.classList.remove("fa-sun");
+    icon.classList.add("fa-moon");
+  }
+}
+
+
+
+function toggleSearch() {
+  document.getElementById("searchBar").classList.toggle("active");
+}
+</script>
 
 </body>
 </html>
